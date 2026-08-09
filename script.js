@@ -22,10 +22,6 @@ const ceviriler = {
         totalLabel: "المجموع الكلي:",
         orderBtn: "إتمام الطلب",
         clearCart: "إفراغ السلة",
-        loginTitle: "🔐 تسجيل دخول المشرف",
-        loginBtn: "تسجيل الدخول",
-        userPlaceholder: "اسم المستخدم",
-        passPlaceholder: "كلمة المرور",
         adminTitle: "🛠️ لوحة التحكم: إضافة منتج جديد",
         adminAddBtn: "إضافة المنتج",
         adminEditBtn: "تعديل",
@@ -41,8 +37,6 @@ const ceviriler = {
         msgCreated: "تم إضافة المنتج بنجاح!",
         msgDeleted: "تم حذف المنتج بنجاح!",
         msgOrder: "تم استلام طلبك بنجاح! شكراً لك.",
-        msgLogin: "تم تسجيل الدخول بنجاح!",
-        msgLoginErr: "اسم المستخدم أو كلمة المرور غير صحيحة!",
         msgEmptyCart: "سلتك فارغة!",
         msgFillFields: "يرجى ملء حقول اسم المنتج والسعر!",
         msgSelectImg: "يرجى اختيار صورة واحدة على الأقل!",
@@ -62,10 +56,6 @@ const ceviriler = {
         totalLabel: "Toplam Tutar:",
         orderBtn: "Siparişi Tamamla",
         clearCart: "Sepeti Temizle",
-        loginTitle: "🔐 Admin Girişi",
-        loginBtn: "Giriş Yap",
-        userPlaceholder: "Kullanıcı Adı",
-        passPlaceholder: "Şifre",
         adminTitle: "🛠️ Admin Paneli: Yeni Ürün Ekle",
         adminAddBtn: "Ürünü Ekle",
         adminEditBtn: "Düzenle",
@@ -81,8 +71,6 @@ const ceviriler = {
         msgCreated: "Yeni ürün başarıyla eklendi!",
         msgDeleted: "Ürün başarıyla silindi!",
         msgOrder: "Siparişiniz başarıyla alındı! Teşekkür ederiz.",
-        msgLogin: "Giriş Başarılı! Admin moduna geçildi.",
-        msgLoginErr: "Hatalı kullanıcı adı veya şifre!",
         msgEmptyCart: "Sepetiniz boş!",
         msgFillFields: "Lütfen Ürün Adı ve Fiyatı alanlarını doldurun!",
         msgSelectImg: "Lütfen en az 1 resim seçin!",
@@ -95,7 +83,7 @@ function bildirimGoster(mesaj) {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
     toast.className = 'toast';
-    toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color:#38bdf8;"></i> ${mesaj}`;
+    toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color:#00d2ff;"></i> ${mesaj}`;
     container.appendChild(toast);
     setTimeout(() => { toast.remove(); }, 3000);
 }
@@ -109,18 +97,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     await urunleriGetir();
     sepetiGuncelle();
 
-    // Kısayol Tuşu: Shift + Ctrl + 1
+    // Buton Dinleyicileri
+    document.getElementById('btn-settings').onclick = () => document.getElementById('settings-modal').style.display = 'flex';
+    document.getElementById('btn-cart').onclick = sepetiAc;
+    document.getElementById('btn-close-settings').onclick = () => modalKapat('settings-modal');
+    document.getElementById('btn-close-detail').onclick = () => modalKapat('detail-modal');
+    document.getElementById('btn-close-cart').onclick = sepetiKapat;
+    document.getElementById('btn-lang-ar').onclick = () => diliDegistir('ar');
+    document.getElementById('btn-lang-tr').onclick = () => diliDegistir('tr');
+    document.getElementById('detail-add-cart-btn').onclick = detaySepeteEkle;
+    document.getElementById('btn-order').onclick = siparisVer;
+    document.getElementById('btn-clear-cart').onclick = sepetiTemizle;
+    document.getElementById('btn-urun-kaydet').onclick = yeniUrunEkle;
+    document.getElementById('btn-iptal').onclick = formSifirla;
+
+    // Kısayol Tuşu: Shift + Ctrl + 1 (Admin Modu Aç/Kapat)
     document.addEventListener('keydown', (e) => {
         if (e.shiftKey && e.ctrlKey && (e.key === '1' || e.code === 'Digit1' || e.code === 'Numpad1')) {
             e.preventDefault();
-            document.getElementById('login-modal').style.display = 'flex';
+            isAdmin = !isAdmin;
+            const adminPanel = document.getElementById('admin-panel');
+            if(isAdmin) {
+                adminPanel.style.display = 'block';
+                bildirimGoster(aktifDil === 'ar' ? "تم تفعيل وضع المشرف!" : "Admin Modu Açıldı!");
+            } else {
+                adminPanel.style.display = 'none';
+                bildirimGoster(aktifDil === 'ar' ? "تم إغلاق وضع المشرف!" : "Admin Modu Kapatıldı!");
+            }
+            urunleriEkranaBas();
         }
     });
 });
-
-function ayarlariAc() {
-    document.getElementById('settings-modal').style.display = 'flex';
-}
 
 function diliDegistir(dil) {
     aktifDil = dil;
@@ -139,10 +146,14 @@ function dilUygula(dil) {
         root.setAttribute('lang', 'ar');
         root.setAttribute('dir', 'rtl');
         document.body.style.textAlign = 'right';
+        document.getElementById('btn-lang-ar').classList.add('btn-lang-active');
+        document.getElementById('btn-lang-tr').classList.remove('btn-lang-active');
     } else {
         root.setAttribute('lang', 'tr');
         root.setAttribute('dir', 'ltr');
         document.body.style.textAlign = 'left';
+        document.getElementById('btn-lang-tr').classList.add('btn-lang-active');
+        document.getElementById('btn-lang-ar').classList.remove('btn-lang-active');
     }
 
     document.getElementById('ui-settings-text').innerText = t.settingsText;
@@ -151,19 +162,14 @@ function dilUygula(dil) {
     document.getElementById('ui-hero-title').innerText = t.heroTitle;
     document.getElementById('ui-settings-title').innerText = t.settingsTitle;
     document.getElementById('ui-lang-select-desc').innerText = t.langDesc;
-    document.getElementById('ui-close-btn').innerText = t.close;
-    document.getElementById('ui-detail-close').innerText = t.close;
-    document.getElementById('ui-cart-close').innerText = t.close;
-    document.getElementById('ui-login-close').innerText = t.close;
+    document.getElementById('btn-close-settings').innerText = t.close;
+    document.getElementById('btn-close-detail').innerText = t.close;
+    document.getElementById('btn-close-cart').innerText = t.close;
     document.getElementById('detail-add-cart-btn').innerText = t.addCart;
     document.getElementById('ui-cart-modal-title').innerText = t.cartModalTitle;
     document.getElementById('ui-total-label').innerText = t.totalLabel;
-    document.getElementById('ui-order-btn').innerText = t.orderBtn;
-    document.getElementById('ui-clear-cart').innerText = t.clearCart;
-    document.getElementById('ui-login-title').innerText = t.loginTitle;
-    document.getElementById('ui-login-btn').innerText = t.loginBtn;
-    document.getElementById('username').placeholder = t.userPlaceholder;
-    document.getElementById('password').placeholder = t.passPlaceholder;
+    document.getElementById('btn-order').innerText = t.orderBtn;
+    document.getElementById('btn-clear-cart').innerText = t.clearCart;
     
     document.getElementById('yeni-ad').placeholder = t.namePlaceholder;
     document.getElementById('yeni-fiyat').placeholder = t.pricePlaceholder;
@@ -230,25 +236,33 @@ function urunleriEkranaBas() {
 
     urunler.forEach((u) => {
         const displayAdmin = isAdmin ? 'flex' : 'none';
-        const ilkResim = u.resimler && u.resimler.length > 0 ? u.resimler[0] : 'https://via.placeholder.com/300x400/1e293b/38bdf8?text=No+Image';
+        const ilkResim = u.resimler && u.resimler.length > 0 ? u.resimler[0] : 'https://via.placeholder.com/300x400/111a2e/00d2ff?text=No+Image';
 
-        const card = `
-            <div class="product-card" onclick="urunDetayAc(${u.id})">
-                <div class="image-box"><img src="${ilkResim}" alt="${u.ad}"></div>
-                <div class="info-box" style="text-align: ${aktifDil === 'ar' ? 'right' : 'left'};">
-                    <div><h3>${u.ad}</h3></div>
-                    <div>
-                        <p class="price">${u.fiyat} ${t.currency}</p>
-                        <button type="button" onclick="event.stopPropagation(); sepeteEkle(${u.id})">${t.addCart}</button>
-                        <div class="admin-actions" style="display:${displayAdmin};">
-                            <button type="button" class="edit-btn" onclick="event.stopPropagation(); urunDuzenleForm(${u.id})">${t.adminEditBtn}</button>
-                            <button type="button" class="delete-btn" onclick="event.stopPropagation(); urunSil(${u.id})">${t.adminDeleteBtn}</button>
-                        </div>
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.onclick = () => urunDetayAc(u.id);
+        card.innerHTML = `
+            <div class="image-box"><img src="${ilkResim}" alt="${u.ad}"></div>
+            <div class="info-box" style="text-align: ${aktifDil === 'ar' ? 'right' : 'left'};">
+                <div><h3>${u.ad}</h3></div>
+                <div>
+                    <p class="price">${u.fiyat} ${t.currency}</p>
+                    <button type="button" class="btn-add-to-cart">${t.addCart}</button>
+                    <div class="admin-actions" style="display:${displayAdmin};">
+                        <button type="button" class="edit-btn">${t.adminEditBtn}</button>
+                        <button type="button" class="delete-btn">${t.adminDeleteBtn}</button>
                     </div>
                 </div>
             </div>
         `;
-        grid.innerHTML += card;
+
+        card.querySelector('.btn-add-to-cart').onclick = (e) => { e.stopPropagation(); sepeteEkle(u.id); };
+        if(isAdmin) {
+            card.querySelector('.edit-btn').onclick = (e) => { e.stopPropagation(); urunDuzenleForm(u.id); };
+            card.querySelector('.delete-btn').onclick = (e) => { e.stopPropagation(); urunSil(u.id); };
+        }
+
+        grid.appendChild(card);
     });
 }
 
@@ -257,7 +271,7 @@ function urunDetayAc(id) {
     if (!urun) return;
     secilenDetayId = id;
 
-    document.getElementById('detail-main-img').src = urun.resimler[0] || '';
+    document.getElementById('detail-main-img').src = (urun.resimler && urun.resimler.length > 0) ? urun.resimler[0] : '';
     document.getElementById('detail-title').innerText = urun.ad;
     document.getElementById('detail-price').innerText = `${urun.fiyat} ${ceviriler[aktifDil].currency}`;
     document.getElementById('detail-desc').innerText = urun.aciklama || "";
@@ -266,7 +280,10 @@ function urunDetayAc(id) {
     thumbsContainer.innerHTML = '';
     if (urun.resimler && urun.resimler.length > 1) {
         urun.resimler.forEach(src => {
-            thumbsContainer.innerHTML += `<img src="${src}" onclick="document.getElementById('detail-main-img').src='${src}'">`;
+            const img = document.createElement('img');
+            img.src = src;
+            img.onclick = () => { document.getElementById('detail-main-img').src = src; };
+            thumbsContainer.appendChild(img);
         });
     }
 
@@ -310,25 +327,31 @@ function sepetiAc() {
     icerik.innerHTML = '';
 
     if (sepet.length === 0) {
-        icerik.innerHTML = `<p style="text-align:center; color:#94a3b8;">${t.emptyCartText}</p>`;
+        icerik.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:10px;">${t.emptyCartText}</p>`;
     } else {
         sepet.forEach((u) => {
             const ilkResim = u.resimler && u.resimler.length > 0 ? u.resimler[0] : '';
-            icerik.innerHTML += `
-                <div class="cart-item">
-                    <img src="${ilkResim}" alt="${u.ad}">
-                    <div class="cart-item-info" style="text-align: ${aktifDil === 'ar' ? 'right' : 'left'};">
-                        <h4>${u.ad}</h4>
-                        <p>${u.fiyat} ${t.currency} × ${u.adet} = <b>${u.fiyat * u.adet} ${t.currency}</b></p>
-                    </div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="adetDegistir(${u.id}, -1)">-</button>
-                        <span style="font-weight:bold;">${u.adet}</span>
-                        <button class="qty-btn" onclick="adetDegistir(${u.id}, 1)">+</button>
-                    </div>
-                    <i class="fa-solid fa-trash" style="color:#ef4444; cursor:pointer;" onclick="sepettenTamamenSil(${u.id})"></i>
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'cart-item';
+            itemDiv.innerHTML = `
+                <img src="${ilkResim}" alt="${u.ad}">
+                <div class="cart-item-info" style="text-align: ${aktifDil === 'ar' ? 'right' : 'left'};">
+                    <h4>${u.ad}</h4>
+                    <p>${u.fiyat} ${t.currency} × ${u.adet} = <b>${u.fiyat * u.adet} ${t.currency}</b></p>
                 </div>
+                <div class="qty-controls">
+                    <button class="qty-btn btn-minus">-</button>
+                    <span style="font-weight:bold;">${u.adet}</span>
+                    <button class="qty-btn btn-plus">+</button>
+                </div>
+                <i class="fa-solid fa-trash btn-delete-item" style="color:var(--danger-red); cursor:pointer;"></i>
             `;
+
+            itemDiv.querySelector('.btn-minus').onclick = () => adetDegistir(u.id, -1);
+            itemDiv.querySelector('.btn-plus').onclick = () => adetDegistir(u.id, 1);
+            itemDiv.querySelector('.btn-delete-item').onclick = () => sepettenTamamenSil(u.id);
+
+            icerik.appendChild(itemDiv);
         });
     }
     document.getElementById('cart-modal').style.display = 'flex';
@@ -372,22 +395,6 @@ function siparisVer() {
 }
 
 function modalKapat(id) { document.getElementById(id).style.display = 'none'; }
-
-function adminGirisYap() {
-    const t = ceviriler[aktifDil];
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
-
-    if (user === "usame" && pass === "1u2u3u4u5u.U") {
-        bildirimGoster(t.msgLogin);
-        isAdmin = true;
-        modalKapat('login-modal');
-        document.getElementById('admin-panel').style.display = 'block';
-        urunleriEkranaBas();
-    } else {
-        bildirimGoster(t.msgLoginErr);
-    }
-}
 
 function yeniUrunEkle() {
     const t = ceviriler[aktifDil];
