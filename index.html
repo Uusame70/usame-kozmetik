@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجري الحديث</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --bg-dark: #080d1a;
+            --card-bg: #111a2e;
+            --border-color: #1e2d4a;
+            --accent-blue: #00d2ff;
+            --primary-blue: #0066ff;
+            --text-white: #f1f5f9;
+            --text-muted: #94a3b8;
+            --danger-red: #ef4444;
+            --warning-orange: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-white); transition: direction 0.3s ease; }
+
+        header {
+            background: rgba(17, 26, 46, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { font-size: 26px; font-weight: 800; letter-spacing: 1px; color: #fff; }
+        .logo span { color: var(--accent-blue); }
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+
+        .cart-status, .settings-btn {
+            background: var(--card-bg);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-status:hover, .settings-btn:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .hero { padding: 40px 0; }
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+        h2 { margin-bottom: 35px; font-size: 28px; font-weight: 700; text-align: center; color: var(--text-white); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        @media (max-width: 650px) { .product-grid { grid-template-columns: 1fr; gap: 20px; } }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .product-card:hover { 
+            transform: translateY(-6px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 210, 255, 0.15);
+        }
+
+        .image-box { width: 100%; aspect-ratio: 3 / 4; background: #050811; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .image-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .product-card:hover .image-box img { transform: scale(1.04); }
+
+        .info-box { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .info-box h3 { font-size: 18px; font-weight: 600; color: #f8fafc; }
+        .price { font-size: 22px; color: var(--accent-blue); font-weight: 700; margin: 12px 0 16px; }
+
+        .admin-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-blue), #0044cc);
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        button:hover { transform: translateY(-1px); filter: brightness(1.1); }
+        .btn-primary { background: linear-gradient(135deg, #00d2ff, #0088ff) !important; color: #080d1a !important; font-weight: 700 !important; }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626) !important; color: white !important; margin-bottom: 8px; }
+        .btn-close { background: #1e2d4a !important; color: var(--text-muted) !important; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 7, 15, 0.88);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-small { max-width: 340px; text-align: center; }
+        #ui-settings-title, #ui-cart-modal-title { color: var(--accent-blue); font-size: 20px; margin-bottom: 15px; text-align: center; }
+        #ui-lang-select-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
+
+        .btn-lang { background: #1e2d4a; color: var(--text-white); margin-bottom: 10px; }
+        .btn-lang-active { background: var(--accent-blue) !important; color: #080d1a !important; font-weight: 700; }
+
+        .detail-img-box { width: 100%; max-height: 300px; background: #050811; border-radius: 12px; overflow: hidden; margin-bottom: 12px; border: 1px solid var(--border-color); }
+        .detail-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .gallery-thumbs { display: flex; gap: 8px; padding-bottom: 15px; overflow-x: auto; justify-content: center; }
+        .gallery-thumbs img { width: 48px; height: 64px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; }
+        .gallery-thumbs img:hover { border-color: var(--accent-blue); }
+
+        .detail-price-text { color: var(--accent-blue); font-size: 24px; font-weight: bold; margin: 8px 0; text-align: center; }
+        .detail-desc { background: #0a1122; padding: 14px; border-radius: 10px; color: var(--text-muted); font-size: 14px; line-height: 1.6; margin: 15px 0; border: 1px solid var(--border-color); }
+
+        .cart-item { display: flex; align-items: center; justify-content: space-between; background: #0a1122; padding: 12px 14px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border-color); }
+        .cart-item img { width: 42px; height: 56px; object-fit: cover; border-radius: 6px; }
+        .cart-item-info { flex-grow: 1; padding: 0 12px; }
+        .cart-item-info h4 { font-size: 15px; color: var(--text-white); }
+        .cart-item-info p { font-size: 13px; color: var(--accent-blue); margin-top: 2px; }
+
+        .qty-controls { display: flex; align-items: center; gap: 8px; margin-right: 10px; }
+        .qty-btn { background: #1e2d4a; color: white; border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-size: 14px; padding: 0; display: flex; align-items: center; justify-content: center; }
+        .qty-btn:hover { background: var(--accent-blue); color: #080d1a; }
+
+        .cart-divider { border-bottom: 1px solid var(--border-color); margin: 18px 0; }
+        .cart-total-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 18px; margin-bottom: 18px; }
+
+        .admin-panel {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 35px;
+            border: 1px solid var(--accent-blue);
+            text-align: center;
+        }
+
+        .admin-panel input, .admin-panel textarea {
+            padding: 12px; margin: 6px 0; border-radius: 8px; border: 1px solid var(--border-color); background: #070c18; color: white; width: 100%; max-width: 420px; font-size: 14px;
+        }
+
+        .admin-panel textarea { resize: vertical; height: 75px; }
+        .admin-panel label { color: var(--text-muted); font-size: 13px; display: block; margin-top: 8px; }
+        .admin-panel-btns { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+
+        .btn-save { background: linear-gradient(135deg, #10b981, #059669); width: 180px; }
+        .btn-cancel { background: #64748b; width: 120px; }
+        .edit-btn { background: var(--warning-orange) !important; }
+        .delete-btn { background: var(--danger-red) !important; }
+
+        #toast-container { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: var(--card-bg); color: var(--text-white); padding: 12px 24px; border-radius: 30px; border: 1px solid var(--accent-blue); font-size: 14px; animation: fadeInOut 3s forwards; display: flex; align-items: center; gap: 8px; }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast-container"></div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo" id="ui-logo">متجري<span>.</span></div>
+            <div class="nav-right">
+                <div class="settings-btn" id="btn-settings">
+                    <i class="fa-solid fa-sliders"></i> <span id="ui-settings-text">الإعدادات</span>
+                </div>
+                <div class="cart-status" id="btn-cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="ui-cart-label">السلة</span>: <span id="sepet-sayi">0</span> | <span id="toplam-fiyat">0</span> <span id="ui-currency">ليرة</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="container">
+            <h2 id="ui-hero-title">تشكيلة الموسم الجديد</h2>
+
+            <div id="admin-panel" class="admin-panel">
+                <h3 id="form-baslik">🛠️ لوحة التحكم: إضافة منتج جديد</h3>
+                <input type="hidden" id="edit-urun-id">
+                <input type="text" id="yeni-ad" placeholder="اسم المنتج"><br>
+                <input type="number" id="yeni-fiyat" placeholder="السعر"><br>
+                <textarea id="yeni-aciklama" placeholder="وصف المنتج"></textarea><br>
+                <label id="ui-file-label">اختر الصور (الحد الأقصى 10): </label><br>
+                <input type="file" id="yeni-resim-files" accept="image/*" multiple><br><br>
+                <div class="admin-panel-btns">
+                    <button id="btn-urun-kaydet" class="btn-save">إضافة المنتج</button>
+                    <button id="btn-iptal" class="btn-cancel" style="display:none;">إلغاء</button>
+                </div>
+            </div>
+
+            <div class="product-grid" id="urun-listesi"></div>
+        </div>
+    </main>
+
+    <div id="settings-modal" class="modal">
+        <div class="modal-box modal-small">
+            <h3 id="ui-settings-title">الإعدادات / Ayarlar</h3>
+            <p id="ui-lang-select-desc">اختر لغة التطبيق / Uygulama Dilini Seçin</p>
+            <button id="btn-lang-ar" class="btn-lang btn-lang-active">العربية (Arapça)</button>
+            <button id="btn-lang-tr" class="btn-lang">Türkçe (Türkçe)</button>
+            <button id="btn-close-settings" class="btn-close">إغلاق</button>
+        </div>
+    </div>
+
+    <div id="detail-modal" class="modal">
+        <div class="modal-box">
+            <div class="detail-img-box">
+                <img id="detail-main-img" src="" alt="">
+            </div>
+            <div id="detail-thumbs" class="gallery-thumbs"></div>
+            <h3 id="detail-title"></h3>
+            <p id="detail-price" class="detail-price-text"></p>
+            <div id="detail-desc" class="detail-desc"></div>
+            <button id="detail-add-cart-btn" class="btn-primary">إضافة إلى السلة</button>
+            <button id="btn-close-detail" class="btn-close" style="margin-top:8px;">إغلاق</button>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-box">
+            <h3 id="ui-cart-modal-title">🛍️ المنتجات في سلتك</h3>
+            <div id="sepet-icerik"></div>
+            <div class="cart-divider"></div>
+            <div class="cart-total-row">
+                <span id="ui-total-label">المجموع الكلي:</span>
+                <span><span id="sepet-modal-toplam">0</span> <span class="curr-text">ليرة</span></span>
+            </div>
+            <button id="btn-order" class="btn-primary">إتمام الطلب</button>
+            <button id="btn-clear-cart" class="btn-danger">إفراغ السلة</button>
+            <button id="btn-close-cart" class="btn-close">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        const supabaseUrl = 'https://nrhjosjmhzsshlpcarjb.supabase.co';
+        const supabaseKey = 'sb_publishable_0Hnj8vv3VPNls6bYXYayhQ_0NLCk8Ml';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        let urunler = [];
+        let sepet = [];
+        let isAdmin = false;
+        let aktifDil = localStorage.getItem('magaza_dil') || 'ar';
+        let secilenDetayId = null;
+
+        const ceviriler = {
+            ar: {
+                cartLabel: "السلة", currency: "ليرة", heroTitle: "تشكيلة الموسم الجديد", settingsText: "الإعدادات", settingsTitle: "الإعدادات", langDesc: "اختر لغة التطبيق", close: "إغلاق", addCart: "إضافة إلى السلة", cartModalTitle: "🛍️ المنتجات في سلتك", totalLabel: "المجموع الكلي:", orderBtn: "إتمام الطلب", clearCart: "إفراغ السلة", adminTitle: "🛠️ لوحة التحكم: إضافة منتج جديد", adminAddBtn: "إضافة المنتج", adminEditBtn: "تعديل", adminUpdateBtn: "تحديث", adminDeleteBtn: "حذف", adminCancel: "إلغاء", namePlaceholder: "اسم المنتج", pricePlaceholder: "السعر", descPlaceholder: "وصف المنتج", fileLabel: "اختر الصور (الحد الأقصى 10):", msgAdded: "تمت إضافة المنتج إلى السلة!", msgUpdated: "تم تحديث المنتج بنجاح!", msgCreated: "تم إضافة المنتج بنجاح!", msgDeleted: "تم حذف المنتج بنجاح!", msgOrder: "تم استلام طلبك بنجاح! شكراً لك.", msgEmptyCart: "سلتك فارغة!", msgFillFields: "يرجى ملء حقول اسم المنتج والسعر!", msgSelectImg: "يرجى اختيار صورة واحدة على الأقل!", confirmDelete: "هل أنت متأكد من رغبتك في حذف هذا المنتج؟", emptyCartText: "سلة التسوق فارغة."
+            },
+            tr: {
+                cartLabel: "Sepet", currency: "TL", heroTitle: "Yeni Sezon Koleksiyonu", settingsText: "Ayarlar", settingsTitle: "Ayarlar", langDesc: "Uygulama Dilini Seçin", close: "Kapat", addCart: "Sepete Ekle", cartModalTitle: "🛍️ Sepetinizdeki Ürünler", totalLabel: "Toplam Tutar:", orderBtn: "Siparişi Tamamla", clearCart: "Sepeti Temizle", adminTitle: "🛠️ Admin Paneli: Yeni Ürün Ekle", adminAddBtn: "Ürünü Ekle", adminEditBtn: "Düzenle", adminUpdateBtn: "Güncelle", adminDeleteBtn: "Sil", adminCancel: "İptal", namePlaceholder: "Ürün Adı", pricePlaceholder: "Fiyat", descPlaceholder: "Ürün Açıklaması", fileLabel: "Fotoğraflar Seç (Max 10):", msgAdded: "Ürün sepete eklendi!", msgUpdated: "Ürün başarıyla güncellendi!", msgCreated: "Yeni ürün başarıyla eklendi!", msgDeleted: "Ürün başarıyla silindi!", msgOrder: "Siparişiniz başarıyla alındı! Teşekkür ederiz.", msgEmptyCart: "Sepetiniz boş!", msgFillFields: "Lütfen Ürün Adı ve Fiyatı alanlarını doldurun!", msgSelectImg: "Lütfen en az 1 resim seçin!", confirmDelete: "Bu ürünü silmek istediğinize emin misiniz?", emptyCartText: "Sepetiniz boş."
+            }
+        };
+
+        function bildirimGoster(mesaj) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color:#00d2ff;"></i> ${mesaj}`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            dilUygula(aktifDil);
+            const kayitliSepet = localStorage.getItem('magaza_sepet');
+            if (kayitliSepet) sepet = JSON.parse(kayitliSepet);
+
+            await urunleriGetir();
+            sepetiGuncelle();
+
+            document.getElementById('btn-settings').onclick = () => document.getElementById('settings-modal').style.display = 'flex';
+            document.getElementById('btn-cart').onclick = sepetiAc;
+            document.getElementById('btn-close-settings').onclick = () => modalKapat('settings-modal');
+            document.getElementById('btn-close-detail').onclick = () => modalKapat('detail-modal');
+            document.getElementById('btn-close-cart').onclick = sepetiKapat;
+            document.getElementById('btn-lang-ar').onclick = () => diliDegistir('ar');
+            document.getElementById('btn-lang-tr').onclick = () => diliDegistir('tr');
+            document.getElementById('detail-add-cart-btn').onclick = detaySepeteEkle;
+            document.getElementById('btn-order').onclick = siparisVer;
+            document.getElementById('btn-clear-cart').onclick = sepetiTemizle;
+            document.getElementById('btn-urun-kaydet').onclick = yeniUrunEkle;
+            document.getElementById('btn-iptal').onclick = formSifirla;
+
+            document.addEventListener('keydown', (e) => {
+                if (e.shiftKey && e.ctrlKey && (e.key === '1' || e.code === 'Digit1' || e.code === 'Numpad1')) {
+                    e.preventDefault();
+                    isAdmin = !isAdmin;
+                    const adminPanel = document.getElementById('admin-panel');
+                    if(isAdmin) {
+                        adminPanel.style.display = 'block';
+                        bildirimGoster(aktifDil === 'ar' ? "تم تفعيل وضع المشرف!" : "Admin Modu Açıldı!");
+                    } else {
+                        adminPanel.style.display = 'none';
+                        bildirimGoster(aktifDil === 'ar' ? "تم إغلاق وضع المشرف!" : "Admin Modu Kapatıldı!");
+                    }
+                    urunleriEkranaBas();
+                }
+            });
+        });
+
+        function diliDegistir(dil) {
+            aktifDil = dil;
+            localStorage.setItem('magaza_dil', dil);
+            dilUygula(dil);
+            modalKapat('settings-modal');
+            urunleriEkranaBas();
+            sepetiGuncelle();
+        }
+
+        function dilUygula(dil) {
+            const t = ceviriler[dil];
+            const root = document.getElementById('html-root');
+
+            if (dil === 'ar') {
+                root.setAttribute('lang', 'ar'); root.setAttribute('dir', 'rtl'); document.body.style.textAlign = 'right';
+                document.getElementById('btn-lang-ar').classList.add('btn-lang-active'); document.getElementById('btn-lang-tr').classList.remove('btn-lang-active');
+            } else {
+                root.setAttribute('lang', 'tr'); root.setAttribute('dir', 'ltr'); document.body.style.textAlign = 'left';
+                document.getElementById('btn-lang-tr').classList.add('btn-lang-active'); document.getElementById('btn-lang-ar').classList.remove('btn-lang-active');
+            }
+
+            document.getElementById('ui-settings-text').innerText = t.settingsText;
+            document.getElementById('ui-cart-label').innerText = t.cartLabel;
+            document.getElementById('ui-currency').innerText = t.currency;
+            document.getElementById('ui-hero-title').innerText = t.heroTitle;
+            document.getElementById('ui-settings-title').innerText = t.settingsTitle;
+            document.getElementById('ui-lang-select-desc').innerText = t.langDesc;
+            document.getElementById('btn-close-settings').innerText = t.close;
+            document.getElementById('btn-close-detail').innerText = t.close;
+            document.getElementById('btn-close-cart').innerText = t.close;
+            document.getElementById('detail-add-cart-btn').innerText = t.addCart;
+            document.getElementById('ui-cart-modal-title').innerText = t.cartModalTitle;
+            document.getElementById('ui-total-label').innerText = t.totalLabel;
+            document.getElementById('btn-order').innerText = t.orderBtn;
+            document.getElementById('btn-clear-cart').innerText = t.clearCart;
+            document.getElementById('yeni-ad').placeholder = t.namePlaceholder;
+            document.getElementById('yeni-fiyat').placeholder = t.pricePlaceholder;
+            document.getElementById('yeni-aciklama').placeholder = t.descPlaceholder;
+            document.getElementById('ui-file-label').innerText = t.fileLabel;
+
+            const editId = document.getElementById('edit-urun-id').value;
+            if (editId) {
+                document.getElementById('form-baslik').innerText = dil === 'ar' ? "✏️ لوحة التحكم: تعديل المنتج" : "✏️ Admin Paneli: Ürünü Düzenle";
+                document.getElementById('btn-urun-kaydet').innerText = t.adminUpdateBtn;
+            } else {
+                document.getElementById('form-baslik').innerText = dil === 'ar' ? "🛠️ لوحة التحكم: إضافة منتج جديد" : "🛠️ Admin Paneli: Yeni Ürün Ekle";
+                document.getElementById('btn-urun-kaydet').innerText = t.adminAddBtn;
+            }
+            document.getElementById('btn-iptal').innerText = t.adminCancel;
+            document.querySelectorAll('.curr-text').forEach(el => el.innerText = t.currency);
+        }
+
+        async function urunleriGetir() {
+            const { data, error } = await supabase.from('urunler').select('*');
+            if (error) { console.error(error); return; }
+            urunler = data || [];
+            urunleriEkranaBas();
+        }
+
+        async function kaydetUrun(editId, ad, fiyat, aciklama, resimler) {
+            const t = ceviriler[aktifDil];
+            const btn = document.getElementById('btn-urun-kaydet');
+            btn.innerText = aktifDil === 'ar' ? "جاري الحفظ..." : "Kaydediliyor...";
+            btn.disabled = true;
+
+            if (editId) {
+                const { error } = await supabase.from('urunler').update({ ad, fiyat, aciklama, resimler }).eq('id', editId);
+                if (error) bildirimGoster(error.message); else bildirimGoster(t.msgUpdated);
+            } else {
+                const { error } = await supabase.from('urunler').insert([{ ad, fiyat, aciklama, resimler }]);
+                if (error) bildirimGoster(error.message); else bildirimGoster(t.msgCreated);
+            }
+
+            btn.disabled = false;
+            formSifirla();
+            await urunleriGetir();
+        }
+
+        async function urunSil(id) {
+            const t = ceviriler[aktifDil];
+            if(confirm(t.confirmDelete)) {
+                const { error } = await supabase.from('urunler').delete().eq('id', id);
+                if (error) bildirimGoster(error.message);
+                else { bildirimGoster(t.msgDeleted); await urunleriGetir(); }
+            }
+        }
+
+        function urunleriEkranaBas() {
+            const t = ceviriler[aktifDil];
+            const grid = document.getElementById('urun-listesi');
+            grid.innerHTML = '';
+
+            urunler.forEach((u) => {
+                const displayAdmin = isAdmin ? 'flex' : 'none';
+                const ilkResim = u.resimler && u.resimler.length > 0 ? u.resimler[0] : 'https://via.placeholder.com/300x400/111a2e/00d2ff?text=No+Image';
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => urunDetayAc(u.id);
+                card.innerHTML = `
+                    <div class="image-box"><img src="${ilkResim}" alt="${u.ad}"></div>
+                    <div class="info-box" style="text-align: ${aktifDil === 'ar' ? 'right' : 'left'};">
+                        <div><h3>${u.ad}</h3></div>
+                        <div>
+                            <p class="price">${u.fiyat} ${t.currency}</p>
+                            <button type="button" class="btn-add-to-cart">${t.addCart}</button>
+                            <div class="admin-actions" style="display:${displayAdmin};">
+                                <button type="button" class="edit-btn">${t.adminEditBtn}</button>
+                                <button type="button" class="delete-btn">${t.adminDeleteBtn}</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                card.querySelector('.btn-add-to-cart').onclick = (e) => { e.stopPropagation(); sepeteEkle(u.id); };
+                if(isAdmin) {
+                    card.querySelector('.edit-btn').onclick = (e) => { e.stopPropagation(); urunDuzenleForm(u.id); };
+                    card.querySelector('.delete-btn').onclick = (e) => { e.stopPropagation(); urunSil(u.id); };
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        function urunDetayAc(id) {
+            const urun = urunler.find(u => u.id === id);
+            if (!urun) return;
+            secilenDetayId = id;
+
+            document.getElementById('detail-main-img').src = (urun.resimler && urun.resimler.length > 0) ? urun.resimler[0] : '';
+            document.getElementById('detail-title').innerText = urun.ad;
+            document.getElementById('detail-price').innerText = `${urun.fiyat} ${ceviriler[aktifDil].currency}`;
+            document.getElementById('detail-desc').innerText = urun.aciklama || "";
+
+            const thumbsContainer = document.getElementById('detail-thumbs');
+            thumbsContainer.innerHTML = '';
+            if (urun.resimler && urun.resimler.length > 1) {
+                urun.resimler.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.onclick = () => { document.getElementById('detail-main-img').src = src; };
+                    thumbsContainer.appendChild(img);
+                });
+            }
+
+            document.getElementById('detail-modal').style.display = 'flex';
+        }
+
+        function detaySepeteEkle() {
+            if (secilenDetayId) {
+                sepeteEkle(secilenDetayId);
+                modalKapat('detail-modal');
+            }
+        }
+
+        function sepeteEkle(id) {
+            const t = ceviriler[aktifDil];
+            const varOlanUrun = sepet.find(item => item.id === id);
+            if (varOlanUrun) { varOlanUrun.adet += 1; } 
+            else { const urun = urunler.find(u => u.id === id); if (urun) sepet.push({ ...urun, adet: 1 }); }
+
+            localStorage.setItem('magaza_sepet', JSON.stringify(sepet));
+            sepetiGuncelle();
+            bildirimGoster(t.msgAdded);
+        }
+
+        function sepetiGuncelle() {
+            const toplamAdet = sepet.reduce((sum, item) => sum + item.adet, 0);
+            const toplamFiyat = sepet.reduce((sum, item) => sum + (item.fiyat * item.adet), 0);
+
+            document.getElementById('sepet-sayi').innerText = toplamAdet;
+            document.getElementById('toplam-fiyat').innerText = toplamFiyat;
+            document.getElementById('sepet-modal-toplam').innerText = toplamFiyat;
+        }
+
+        function sepetiAc() {
+            const t = ceviriler[aktifDil];
+            const icerik = document.getElementById('sepet-icerik');
+            icerik.innerHTML = '';
+
+            if (sepet.length === 0) {
+                icerik.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:10px;">${t.emptyCartText}</p>`;
+            } else {
+                sepet.forEach((u) => {
+                    const ilkResim = u.resimler && u.resimler.length > 0 ? u.resimler[0] : '';
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML = `
+                        <img src="${ilkResim}" alt="${u.ad}">
+                        <div class="cart-item-info" style="text-align: ${aktifDil === 'ar' ? 'right' : 'left'};">
+                            <h4>${u.ad}</h4>
+                            <p>${u.fiyat} ${t.currency} × ${u.adet} = <b>${u.fiyat * u.adet} ${t.currency}</b></p>
+                        </div>
+                        <div class="qty-controls">
+                            <button class="qty-btn btn-minus">-</button>
+                            <span style="font-weight:bold;">${u.adet}</span>
+                            <button class="qty-btn btn-plus">+</button>
+                        </div>
+                        <i class="fa-solid fa-trash btn-delete-item" style="color:var(--danger-red); cursor:pointer;"></i>
+                    `;
+
+                    itemDiv.querySelector('.btn-minus').onclick = () => adetDegistir(u.id, -1);
+                    itemDiv.querySelector('.btn-plus').onclick = () => adetDegistir(u.id, 1);
+                    itemDiv.querySelector('.btn-delete-item').onclick = () => sepettenTamamenSil(u.id);
+
+                    icerik.appendChild(itemDiv);
+                });
+            }
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        function adetDegistir(id, degisim) {
+            const item = sepet.find(i => i.id === id);
+            if (item) {
+                item.adet += degisim;
+                if (item.adet <= 0) sepet = sepet.filter(i => i.id !== id);
+                localStorage.setItem('magaza_sepet', JSON.stringify(sepet));
+                sepetiGuncelle();
+                sepetiAc();
+            }
+        }
+
+        function sepettenTamamenSil(id) {
+            sepet = sepet.filter(i => i.id !== id);
+            localStorage.setItem('magaza_sepet', JSON.stringify(sepet));
+            sepetiGuncelle();
+            sepetiAc();
+        }
+
+        function sepetiKapat() { document.getElementById('cart-modal').style.display = 'none'; }
+        function sepetiTemizle() {
+            sepet = [];
+            localStorage.removeItem('magaza_sepet');
+            sepetiGuncelle();
+            sepetiAc();
+        }
+
+        function siparisVer() {
+            const t = ceviriler[aktifDil];
+            if(sepet.length === 0) { bildirimGoster(t.msgEmptyCart); return; }
+            bildirimGoster(t.msgOrder);
+            sepetiTemizle();
+            sepetiKapat();
+        }
+
+        function modalKapat(id) { document.getElementById(id).style.display = 'none'; }
+
+        function yeniUrunEkle() {
+            const t = ceviriler[aktifDil];
+            const editId = document.getElementById('edit-urun-id').value;
+            const ad = document.getElementById('yeni-ad').value;
+            const fiyat = parseInt(document.getElementById('yeni-fiyat').value);
+            const aciklama = document.getElementById('yeni-aciklama').value;
+            const resimInput = document.getElementById('yeni-resim-files');
+
+            if(!ad || !fiyat) { bildirimGoster(t.msgFillFields); return; }
+
+            let files = Array.from(resimInput.files);
+
+            if (files.length === 0 && editId) {
+                const mevcutUrun = urunler.find(u => u.id == editId);
+                kaydetUrun(editId, ad, fiyat, aciklama, mevcutUrun.resimler);
+                return;
+            }
+
+            if(files.length === 0 && !editId) { bildirimGoster(t.msgSelectImg); return; }
+            if(files.length > 10) files = files.slice(0, 10);
+
+            const resimUrlDizisi = [];
+            let okunanSayi = 0;
+
+            files.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    resimUrlDizisi.push(e.target.result);
+                    okunanSayi++;
+                    if(okunanSayi === files.length) { kaydetUrun(editId, ad, fiyat, aciklama, resimUrlDizisi); }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function urunDuzenleForm(id) {
+            const t = ceviriler[aktifDil];
+            const urun = urunler.find(u => u.id === id);
+            if (!urun) return;
+
+            document.getElementById('edit-urun-id').value = urun.id;
+            document.getElementById('yeni-ad').value = urun.ad;
+            document.getElementById('yeni-fiyat').value = urun.fiyat;
+            document.getElementById('yeni-aciklama').value = urun.aciklama || '';
+            
+            document.getElementById('form-baslik').innerText = aktifDil === 'ar' ? "✏️ لوحة التحكم: تعديل المنتج" : "✏️ Admin Paneli: Ürünü Düzenle";
+            document.getElementById('btn-urun-kaydet').innerText = t.adminUpdateBtn;
+            document.getElementById('btn-iptal').style.display = "inline-block";
+
+            document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function formSifirla() {
+            const t = ceviriler[aktifDil];
+            document.getElementById('edit-urun-id').value = '';
+            document.getElementById('yeni-ad').value = '';
+            document.getElementById('yeni-fiyat').value = '';
+            document.getElementById('yeni-aciklama').value = '';
+            document.getElementById('yeni-resim-files').value = '';
+
+            document.getElementById('form-baslik').innerText = aktifDil === 'ar' ? "🛠️ لوحة التحكم: إضافة منتج جديد" : "🛠️ Admin Paneli: Yeni Ürün Ekle";
+            document.getElementById('btn-urun-kaydet').innerText = t.adminAddBtn;
+            document.getElementById('btn-iptal').style.display = "none";
+        }
+    </script>
+</body>
+</html>
