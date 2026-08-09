@@ -109,8 +109,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     await urunleriGetir();
     sepetiGuncelle();
 
+    // Kısayol Tuşu: Shift + Ctrl + 1
     document.addEventListener('keydown', (e) => {
-        if (e.shiftKey && e.altKey && (e.key === 'M' || e.key === 'm')) {
+        if (e.shiftKey && e.ctrlKey && (e.key === '1' || e.code === 'Digit1' || e.code === 'Numpad1')) {
+            e.preventDefault();
             document.getElementById('login-modal').style.display = 'flex';
         }
     });
@@ -401,6 +403,8 @@ function yeniUrunEkle() {
     }
 
     let files = Array.from(resimInput.files);
+
+    // Eğer düzenleme modundaysa ve yeni resim seçilmediyse mevcut resimleri koru
     if (files.length === 0 && editId) {
         const mevcutUrun = urunler.find(u => u.id == editId);
         kaydetUrun(editId, ad, fiyat, aciklama, mevcutUrun.resimler);
