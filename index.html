@@ -6,6 +6,8 @@
     <title>متجري الحديث</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -15,11 +17,11 @@
         <div class="nav-container">
             <div class="logo" id="ui-logo">متجري<span>.</span></div>
             <div class="nav-right">
-                <div class="settings-btn" onclick="ayarlariAc()">
-                    <i class="fa-solid fa-gear"></i> <span id="ui-settings-text">الإعدادات</span>
+                <div class="settings-btn" id="btn-settings">
+                    <i class="fa-solid fa-sliders"></i> <span id="ui-settings-text">الإعدادات</span>
                 </div>
-                <div class="cart-status" onclick="sepetiAc()">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-status" id="btn-cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
                     <span id="ui-cart-label">السلة</span>: <span id="sepet-sayi">0</span> | <span id="toplam-fiyat">0</span> <span id="ui-currency">ليرة</span>
                 </div>
             </div>
@@ -31,16 +33,16 @@
             <h2 id="ui-hero-title">تشكيلة الموسم الجديد</h2>
 
             <div id="admin-panel" class="admin-panel">
-                <h3 id="form-baslik" style="margin-bottom:15px; color:#38bdf8;">🛠️ لوحة التحكم: إضافة منتج جديد</h3>
+                <h3 id="form-baslik">🛠️ لوحة التحكم: إضافة منتج جديد</h3>
                 <input type="hidden" id="edit-urun-id">
                 <input type="text" id="yeni-ad" placeholder="اسم المنتج"><br>
                 <input type="number" id="yeni-fiyat" placeholder="السعر"><br>
                 <textarea id="yeni-aciklama" placeholder="وصف المنتج"></textarea><br>
-                <label style="color:white; font-size:14px;" id="ui-file-label">اختر الصور (الحد الأقصى 10): </label><br>
-                <input type="file" id="yeni-resim-files" accept="image/*" multiple style="color:white; margin-top:5px; width:auto;"><br><br>
-                <div style="display:flex; justify-content:center; gap:10px;">
-                    <button id="btn-urun-kaydet" onclick="yeniUrunEkle()" style="background:#10b981; color:white; width:180px;">إضافة المنتج</button>
-                    <button id="btn-iptal" onclick="formSifirla()" style="background:#64748b; color:white; width:120px; display:none;">إلغاء</button>
+                <label id="ui-file-label">اختر الصور (الحد الأقصى 10): </label><br>
+                <input type="file" id="yeni-resim-files" accept="image/*" multiple><br><br>
+                <div class="admin-panel-btns">
+                    <button id="btn-urun-kaydet" class="btn-save">إضافة المنتج</button>
+                    <button id="btn-iptal" class="btn-cancel" style="display:none;">إلغاء</button>
                 </div>
             </div>
 
@@ -49,55 +51,43 @@
     </main>
 
     <div id="settings-modal" class="modal">
-        <div class="modal-box" style="text-align:center; max-width:320px;">
-            <h3 id="ui-settings-title" style="color:#38bdf8; margin-bottom:15px;">الإعدادات / Ayarlar</h3>
-            <p id="ui-lang-select-desc" style="color:#94a3b8; font-size:13px; margin-bottom:15px;">اختر لغة التطبيق / Uygulama Dilini Seçin</p>
-            <button onclick="diliDegistir('ar')" style="background:#38bdf8; color:#0f172a; margin-bottom:8px;">العربية (Arapça)</button>
-            <button onclick="diliDegistir('tr')" style="background:#334155; color:white; margin-bottom:15px;">Türkçe (Türkçe)</button>
-            <button onclick="modalKapat('settings-modal')" id="ui-close-btn" style="background:#64748b; color:white;">إغلاق</button>
+        <div class="modal-box modal-small">
+            <h3 id="ui-settings-title">الإعدادات / Ayarlar</h3>
+            <p id="ui-lang-select-desc">اختر لغة التطبيق / Uygulama Dilini Seçin</p>
+            <button id="btn-lang-ar" class="btn-lang btn-lang-active">العربية (Arapça)</button>
+            <button id="btn-lang-tr" class="btn-lang">Türkçe (Türkçe)</button>
+            <button id="btn-close-settings" class="btn-close">إغلاق</button>
         </div>
     </div>
 
     <div id="detail-modal" class="modal">
-        <div class="modal-box" style="text-align:center;">
+        <div class="modal-box">
             <div class="detail-img-box">
                 <img id="detail-main-img" src="" alt="">
             </div>
             <div id="detail-thumbs" class="gallery-thumbs"></div>
-            <h3 id="detail-title" style="color:#f8fafc; font-size:20px;"></h3>
-            <p id="detail-price" style="color:#38bdf8; font-size:22px; font-weight:bold; margin:8px 0;"></p>
+            <h3 id="detail-title"></h3>
+            <p id="detail-price" class="detail-price-text"></p>
             <div id="detail-desc" class="detail-desc"></div>
-            <button id="detail-add-cart-btn" onclick="detaySepeteEkle()" style="background:#10b981; color:white; margin-bottom:8px;">إضافة إلى السلة</button>
-            <button onclick="modalKapat('detail-modal')" id="ui-detail-close" style="background:#64748b; color:white;">إغلاق</button>
+            <button id="detail-add-cart-btn" class="btn-primary">إضافة إلى السلة</button>
+            <button id="btn-close-detail" class="btn-close" style="margin-top:8px;">إغلاق</button>
         </div>
     </div>
 
     <div id="cart-modal" class="modal">
         <div class="modal-box">
-            <h3 id="ui-cart-modal-title" style="color:#38bdf8; margin-bottom:15px; text-align:center;">🛍️ المنتجات في سلتك</h3>
+            <h3 id="ui-cart-modal-title">🛍️ المنتجات في سلتك</h3>
             <div id="sepet-icerik"></div>
-            <hr style="border-color:#334155; margin:15px 0;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:18px; margin-bottom:15px;">
+            <div class="cart-divider"></div>
+            <div class="cart-total-row">
                 <span id="ui-total-label">المجموع الكلي:</span>
                 <span><span id="sepet-modal-toplam">0</span> <span class="curr-text">ليرة</span></span>
             </div>
-            <button onclick="siparisVer()" id="ui-order-btn" style="background:#10b981; color:white; margin-bottom:8px;">إتمام الطلب</button>
-            <button onclick="sepetiTemizle()" id="ui-clear-cart" style="background:#ef4444; color:white; margin-bottom:8px;">إفراغ السلة</button>
-            <button onclick="sepetiKapat()" id="ui-cart-close" style="background:#64748b; color:white;">إغلاق</button>
+            <button id="btn-order" class="btn-primary">إتمام الطلب</button>
+            <button id="btn-clear-cart" class="btn-danger">إفراغ السلة</button>
+            <button id="btn-close-cart" class="btn-close">إغلاق</button>
         </div>
     </div>
 
-    <div id="login-modal" class="modal">
-        <div class="modal-box" style="text-align:center; max-width:320px;">
-            <h3 id="ui-login-title" style="color:#38bdf8; margin-bottom:15px;">🔐 تسجيل دخول المشرف</h3>
-            <input type="text" id="username" placeholder="اسم المستخدم" style="width:100%; padding:10px; margin:5px 0; background:#0f172a; color:white; border:1px solid #334155; border-radius:5px;">
-            <input type="password" id="password" placeholder="كلمة المرور" style="width:100%; padding:10px; margin:5px 0; background:#0f172a; color:white; border:1px solid #334155; border-radius:5px;">
-            <button onclick="adminGirisYap()" id="ui-login-btn" style="margin-top:10px;">تسجيل الدخول</button>
-            <button onclick="modalKapat('login-modal')" id="ui-login-close" style="background:#ef4444; color:white; margin-top:5px;">إلغاء</button>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
 </body>
 </html>
