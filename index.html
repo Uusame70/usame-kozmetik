@@ -39,7 +39,6 @@
         body { background-color: var(--cream); color: var(--text); padding-bottom: 100px;
                font-weight: 500; line-height: 1.6; }
 
-        /* ═══ Loading Screen ═══ */
         #loadingScreen {
             position: fixed; inset: 0;
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
@@ -81,32 +80,29 @@
             background: radial-gradient(circle, rgba(135, 206, 235, 0.15) 0%, transparent 70%);
             border-radius: 50%;
         }
-        .hero-logo {
-            width: 90px; height: 90px;
+        .hero-logo-wrap {
+            width: 110px; height: 110px;
             margin: 0 auto 16px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.4rem; font-weight: 900; color: var(--navy);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
             position: relative; z-index: 1;
-            border: 3px solid rgba(255, 255, 255, 0.2);
+            filter: drop-shadow(0 8px 24px rgba(212, 175, 55, 0.5));
         }
+        .hero-logo-wrap svg { width: 100%; height: 100%; }
         .hero-logo-img {
-            width: 90px; height: 90px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+            width: 110px; height: 110px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 24px rgba(212, 175, 55, 0.5));
             position: relative; z-index: 1;
-            border: 3px solid rgba(212, 175, 55, 0.5);
             display: none;
         }
         .hero-title {
-            font-size: 1.6rem; font-weight: 900;
-            color: var(--white);
+            font-size: 1.7rem; font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 6px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             position: relative; z-index: 1;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         }
@@ -115,10 +111,17 @@
             color: var(--sky-light);
             font-weight: 500;
             position: relative; z-index: 1;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
+        }
+        .hero-divider {
+            width: 60px; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 12px auto;
+            border-radius: 3px;
+            position: relative; z-index: 1;
         }
 
-        /* ═══ Header (Search + Cart) ═══ */
+        /* ═══ Header ═══ */
         header {
             background-color: var(--white);
             padding: 12px 15px;
@@ -128,13 +131,14 @@
         }
         .header-top { display: flex; justify-content: space-between;
             align-items: center; margin-bottom: 10px; gap: 10px; }
-        .header-btns { display: flex; gap: 8px; align-items: center; }
+        .header-btns { display: flex; gap: 8px; align-items: center; width: 100%; justify-content: flex-end; }
         .cart-btn {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%) !important;
             color: var(--navy) !important;
-            font-weight: 700 !important;
+            font-weight: 800 !important;
             box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3) !important;
             border-radius: var(--radius-sm) !important;
+            padding: 10px 16px !important;
         }
         .search-box { width: 100%; }
         .search-box input {
@@ -152,32 +156,38 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
 
-        /* ═══ Categories Bar ═══ */
+        /* ═══ Kategori Butonları: LACİVERT ZEMİN + ALTIN YAZI ═══ */
         .categories-bar {
-            display: flex; gap: 8px; overflow-x: auto;
-            padding: 12px 15px;
+            display: flex; gap: 10px; overflow-x: auto;
+            padding: 14px 15px;
             background: var(--white);
             scrollbar-width: thin;
             border-bottom: 1px solid #e8ecf0;
         }
         .categories-bar::-webkit-scrollbar { height: 3px; }
         .categories-bar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
         .cat-btn {
-            background-color: var(--cream);
-            color: var(--navy);
-            border: 2px solid transparent;
-            padding: 8px 18px; border-radius: 25px;
-            white-space: nowrap; font-size: 0.85rem;
-            font-weight: 700; cursor: pointer;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 9px 20px; border-radius: 25px;
+            white-space: nowrap; font-size: 0.88rem;
+            font-weight: 800; cursor: pointer;
             transition: all 0.25s;
             font-family: inherit;
+            box-shadow: 0 2px 6px rgba(26, 41, 66, 0.15);
         }
-        .cat-btn:hover { border-color: var(--gold); }
+        .cat-btn:hover {
+            background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            transform: translateY(-1px);
+        }
         .cat-btn.active {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             color: var(--navy);
-            border-color: var(--gold);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold-light);
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.5);
         }
 
         /* ═══ Buttons ═══ */
@@ -204,10 +214,8 @@
             box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
 
-        /* ═══ Container ═══ */
         .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
 
-        /* ═══ Admin Bar ═══ */
         .admin-bar {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(135, 206, 235, 0.1));
             border: 2px solid var(--gold);
@@ -226,7 +234,6 @@
             margin-inline-start: 8px;
         }
 
-        /* ═══ Section Titles ═══ */
         .section-title {
             font-size: 1.4rem;
             font-weight: 900;
@@ -246,7 +253,6 @@
             border-radius: 3px;
         }
 
-        /* ═══ Products Grid ═══ */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -262,10 +268,10 @@
             .product-title { font-size: 0.9rem !important; }
             .product-actions { flex-direction: column; }
             .product-actions button { width: 100%; padding: 8px 5px; }
-            .hero-title { font-size: 1.3rem; }
+            .hero-title { font-size: 1.35rem; }
+            .hero-logo-wrap { width: 90px; height: 90px; }
         }
 
-        /* ═══ Product Card ═══ */
         .product-card {
             background: var(--white);
             border-radius: var(--radius-md);
@@ -328,7 +334,6 @@
         .product-actions { display: flex; gap: 5px; flex-wrap: wrap; }
         .product-actions button { font-size: 0.78rem; padding: 8px 6px; }
 
-        /* ═══ Cart Bar ═══ */
         .cart-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
@@ -350,7 +355,6 @@
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
         }
 
-        /* ═══ Scroll Top Button ═══ */
         #scrollTopBtn {
             position: fixed; bottom: 90px; right: 20px;
             display: none; z-index: 99;
@@ -365,12 +369,10 @@
             transition: all 0.3s;
         }
         #scrollTopBtn:hover {
-            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
             transform: translateY(-3px);
             box-shadow: 0 8px 24px rgba(212, 175, 55, 0.6);
         }
 
-        /* ═══ Modal ═══ */
         .modal {
             display: none; position: fixed; inset: 0;
             background: rgba(26, 41, 66, 0.7);
@@ -406,7 +408,6 @@
             gap: 10px; margin-top: 18px; flex-wrap: wrap;
         }
 
-        /* ═══ Forms ═══ */
         .form-group { margin-bottom: 14px; }
         .form-group label {
             display: block; margin-bottom: 6px;
@@ -431,7 +432,6 @@
         .form-group textarea { resize: vertical; min-height: 80px; }
         .price-hint { font-size: 0.75rem; color: var(--text-light); margin-top: 5px; font-weight: 500; }
 
-        /* ═══ Password ═══ */
         .password-row { display: flex; gap: 6px; }
         .password-row input { flex-grow: 1; }
         .toggle-pass-btn {
@@ -441,7 +441,6 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* ═══ Image Preview ═══ */
         .img-preview {
             width: 100%; max-height: 220px;
             object-fit: contain;
@@ -452,7 +451,6 @@
             border: 2px solid #e8ecf0;
         }
 
-        /* ═══ Cart Items ═══ */
         .cart-item {
             display: flex; justify-content: space-between;
             align-items: center; padding: 12px 0;
@@ -473,7 +471,6 @@
             color: white;
         }
 
-        /* ═══ Detail Modal ═══ */
         .detail-discount {
             display: inline-block;
             background: linear-gradient(135deg, #e74c3c, #c0392b);
@@ -500,7 +497,6 @@
             border: 1px solid #e8ecf0;
         }
 
-        /* ═══ Empty State ═══ */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
@@ -510,7 +506,6 @@
             font-weight: 500;
         }
 
-        /* ═══ Footer ═══ */
         .footer {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
             color: var(--white);
@@ -522,7 +517,10 @@
         }
         .footer-title {
             font-size: 1.1rem; font-weight: 900;
-            color: var(--gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 8px;
         }
         .footer-text {
@@ -538,11 +536,44 @@
         <span>جاري التحميل...</span>
     </div>
 
-    <!-- ═══ HERO BANNER ═══ -->
+    <!-- ═══ HERO BANNER (SVG Logo) ═══ -->
     <section class="hero">
-        <div class="hero-logo" id="heroLogo">م</div>
+        <div class="hero-logo-wrap">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#E8C766;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#B8942E;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <!-- Dış çember (altın) -->
+                <circle cx="50" cy="50" r="46" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0.6"/>
+                <!-- Stilize "M" harfi (dalga motifi) - Ana çizgi -->
+                <path d="M 50 15 
+                         Q 38 32 42 45 
+                         Q 46 55 50 50 
+                         Q 54 45 58 55 
+                         Q 62 68 50 85" 
+                      stroke="url(#goldGrad)" stroke-width="5" 
+                      fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Sol dal -->
+                <path d="M 35 30 Q 30 42 38 50" 
+                      stroke="url(#goldGrad)" stroke-width="3.5" 
+                      fill="none" stroke-linecap="round"/>
+                <!-- Sağ dal -->
+                <path d="M 65 30 Q 70 42 62 50" 
+                      stroke="url(#goldGrad)" stroke-width="3.5" 
+                      fill="none" stroke-linecap="round"/>
+                <!-- Alt dekoratif noktalar -->
+                <circle cx="50" cy="88" r="2.5" fill="url(#goldGrad)"/>
+                <circle cx="38" cy="55" r="1.8" fill="url(#goldGrad)" opacity="0.7"/>
+                <circle cx="62" cy="55" r="1.8" fill="url(#goldGrad)" opacity="0.7"/>
+            </svg>
+        </div>
         <img class="hero-logo-img" id="heroLogoImg" alt="Logo">
         <h1 class="hero-title" id="heroTitle">متجر ميار كوزمتيك</h1>
+        <div class="hero-divider"></div>
         <p class="hero-subtitle">جمالك يبدأ من هنا ✨</p>
     </section>
 
@@ -1291,7 +1322,6 @@
             document.getElementById('adminBar').style.display = isAdmin ? 'flex' : 'none';
         }
 
-        // ═══ Modal Yönetimi ═══
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
             if (id !== 'loadingScreen') {
