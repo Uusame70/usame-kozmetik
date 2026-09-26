@@ -10,32 +10,20 @@
     <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <style>
         :root {
-            --gold: #D4AF37;
-            --gold-light: #E8C766;
-            --gold-dark: #B8942E;
-            --sky: #87CEEB;
-            --sky-light: #B0E0E6;
-            --sky-dark: #5BA8C7;
-            --navy: #1a2942;
-            --navy-light: #2c3e50;
-            --cream: #FAFAF8;
-            --white: #FFFFFF;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --danger: #e74c3c;
-            --success: #27ae60;
-            --shadow-sm: 0 2px 8px rgba(26, 41, 66, 0.06);
-            --shadow-md: 0 4px 16px rgba(26, 41, 66, 0.08);
-            --shadow-lg: 0 8px 32px rgba(26, 41, 66, 0.12);
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
+            --gold: #D4AF37; --gold-light: #E8C766; --gold-dark: #B8942E;
+            --sky: #87CEEB; --sky-light: #B0E0E6; --sky-dark: #5BA8C7;
+            --navy: #1a2942; --navy-light: #2c3e50;
+            --cream: #FAFAF8; --white: #FFFFFF;
+            --text: #2c3e50; --text-light: #7f8c8d;
+            --danger: #e74c3c; --success: #27ae60;
+            --shadow-sm: 0 2px 8px rgba(26,41,66,0.06);
+            --shadow-md: 0 4px 16px rgba(26,41,66,0.08);
+            --shadow-lg: 0 8px 32px rgba(26,41,66,0.12);
+            --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0;
             font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             -webkit-tap-highlight-color: transparent; }
-
         body { background-color: var(--cream); color: var(--text); padding-bottom: 100px;
                font-weight: 500; line-height: 1.6; }
 
@@ -46,79 +34,143 @@
             z-index: 9999; font-size: 1.1rem; color: var(--gold); font-weight: 700;
             transition: opacity 0.4s ease;
         }
-        .spinner {
-            border: 3px solid rgba(212, 175, 55, 0.2);
-            border-top: 3px solid var(--gold);
+        .spinner { border: 3px solid rgba(212,175,55,0.2); border-top: 3px solid var(--gold);
             border-radius: 50%; width: 50px; height: 50px;
-            animation: spin 0.9s linear infinite; margin-bottom: 16px;
-        }
+            animation: spin 0.9s linear infinite; margin-bottom: 16px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ═══ Hero Banner ═══ */
+        /* ═══ Ücretsiz Kargo Şeridi ═══ */
+        .shipping-bar {
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
+            background-size: 200% 100%;
+            color: var(--navy);
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            animation: shimmer 4s ease-in-out infinite;
+            position: relative;
+            z-index: 101;
+        }
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ═══ HERO ═══ */
         .hero {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--sky-dark) 100%);
-            padding: 40px 20px 60px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            padding: 35px 20px 45px;
+            text-align: center; position: relative; overflow: hidden;
             border-radius: 0 0 30px 30px;
             box-shadow: var(--shadow-lg);
         }
         .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%; right: -20%;
+            content: ''; position: absolute; top: -50%; right: -20%;
             width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
             border-radius: 50%;
         }
         .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%; left: -20%;
+            content: ''; position: absolute; bottom: -30%; left: -20%;
             width: 350px; height: 350px;
-            background: radial-gradient(circle, rgba(135, 206, 235, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(135,206,235,0.15) 0%, transparent 70%);
             border-radius: 50%;
         }
         .hero-logo-wrap {
-            width: 110px; height: 110px;
-            margin: 0 auto 16px;
+            width: 100px; height: 100px; margin: 0 auto 14px;
             display: flex; align-items: center; justify-content: center;
             position: relative; z-index: 1;
-            filter: drop-shadow(0 8px 24px rgba(212, 175, 55, 0.5));
+            filter: drop-shadow(0 8px 24px rgba(212,175,55,0.5));
         }
         .hero-logo-wrap svg { width: 100%; height: 100%; }
         .hero-logo-img {
-            width: 110px; height: 110px;
-            object-fit: contain;
-            filter: drop-shadow(0 8px 24px rgba(212, 175, 55, 0.5));
+            width: 100px; height: 100px; object-fit: contain;
+            filter: drop-shadow(0 8px 24px rgba(212,175,55,0.5));
             position: relative; z-index: 1;
             display: none;
+            border-radius: 50%;
         }
         .hero-title {
-            font-size: 1.7rem; font-weight: 900;
+            font-size: 1.6rem; font-weight: 900;
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
+            margin-bottom: 6px; letter-spacing: 1px;
             position: relative; z-index: 1;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         }
         .hero-subtitle {
-            font-size: 0.95rem;
-            color: var(--sky-light);
-            font-weight: 500;
-            position: relative; z-index: 1;
-            letter-spacing: 0.5px;
+            font-size: 0.95rem; color: var(--sky-light); font-weight: 500;
+            position: relative; z-index: 1; letter-spacing: 0.5px;
         }
         .hero-divider {
             width: 60px; height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 12px auto;
-            border-radius: 3px;
-            position: relative; z-index: 1;
+            margin: 12px auto; border-radius: 3px; position: relative; z-index: 1;
+        }
+
+        /* ═══ SLIDER ═══ */
+        .slider-container {
+            max-width: 1200px;
+            margin: -30px auto 0;
+            padding: 0 15px;
+            position: relative;
+            z-index: 10;
+        }
+        .slider {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            aspect-ratio: 16/6;
+            background: var(--navy);
+        }
+        .slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        .slider-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        .slider-slide img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
+        .slider-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(26,41,66,0.6);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; cursor: pointer;
+            z-index: 3;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .slider-nav:hover { background: var(--gold); color: var(--navy); }
+        .slider-prev { right: 12px; }
+        .slider-next { left: 12px; }
+        .slider-dots {
+            position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 6px; z-index: 3;
+        }
+        .slider-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            border: 2px solid rgba(255,255,255,0.8);
+            cursor: pointer; transition: all 0.2s;
+        }
+        .slider-dot.active { background: var(--gold); border-color: var(--gold); transform: scale(1.2); }
+        @media (max-width: 500px) {
+            .slider { aspect-ratio: 16/9; }
+            .slider-nav { width: 34px; height: 34px; font-size: 16px; }
         }
 
         /* ═══ Header ═══ */
@@ -128,6 +180,7 @@
             position: sticky; top: 0; z-index: 100;
             box-shadow: var(--shadow-sm);
             border-bottom: 2px solid var(--gold);
+            margin-top: 20px;
         }
         .header-top { display: flex; justify-content: space-between;
             align-items: center; margin-bottom: 10px; gap: 10px; }
@@ -136,58 +189,46 @@
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%) !important;
             color: var(--navy) !important;
             font-weight: 800 !important;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3) !important;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3) !important;
             border-radius: var(--radius-sm) !important;
             padding: 10px 16px !important;
         }
         .search-box { width: 100%; }
         .search-box input {
             width: 100%; padding: 12px 16px;
-            border: 2px solid #e8ecf0;
-            border-radius: var(--radius-md);
+            border: 2px solid #e8ecf0; border-radius: var(--radius-md);
             font-size: 0.95rem; outline: none;
             background-color: var(--cream);
             font-family: inherit; font-weight: 500;
             transition: all 0.2s;
         }
         .search-box input:focus {
-            border-color: var(--gold);
-            background-color: var(--white);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            border-color: var(--gold); background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
         }
 
-        /* ═══ Kategori Butonları: LACİVERT ZEMİN + ALTIN YAZI ═══ */
+        /* ═══ Kategori ═══ */
         .categories-bar {
             display: flex; gap: 10px; overflow-x: auto;
-            padding: 14px 15px;
-            background: var(--white);
-            scrollbar-width: thin;
-            border-bottom: 1px solid #e8ecf0;
+            padding: 14px 15px; background: var(--white);
+            scrollbar-width: thin; border-bottom: 1px solid #e8ecf0;
         }
         .categories-bar::-webkit-scrollbar { height: 3px; }
         .categories-bar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-
         .cat-btn {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--gold);
-            border: 2px solid var(--gold);
+            color: var(--gold); border: 2px solid var(--gold);
             padding: 9px 20px; border-radius: 25px;
             white-space: nowrap; font-size: 0.88rem;
             font-weight: 800; cursor: pointer;
-            transition: all 0.25s;
-            font-family: inherit;
-            box-shadow: 0 2px 6px rgba(26, 41, 66, 0.15);
+            transition: all 0.25s; font-family: inherit;
+            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
         }
-        .cat-btn:hover {
-            background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-            transform: translateY(-1px);
-        }
+        .cat-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
         .cat-btn.active {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--navy);
-            border-color: var(--gold-light);
-            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.5);
+            color: var(--navy); border-color: var(--gold-light);
+            box-shadow: 0 4px 14px rgba(212,175,55,0.5);
         }
 
         /* ═══ Buttons ═══ */
@@ -195,15 +236,13 @@
             cursor: pointer; padding: 10px 14px; border: none;
             border-radius: var(--radius-sm);
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--white);
-            font-weight: 700; font-size: 0.85rem;
-            touch-action: manipulation;
-            font-family: inherit;
+            color: var(--white); font-weight: 700; font-size: 0.85rem;
+            touch-action: manipulation; font-family: inherit;
             transition: all 0.2s;
-            box-shadow: 0 2px 6px rgba(26, 41, 66, 0.15);
+            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
         }
         button:active { transform: scale(0.97); }
-        button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26, 41, 66, 0.2); }
+        button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,41,66,0.2); }
         button.btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); }
         button.btn-success { background: linear-gradient(135deg, #27ae60, #229954); }
         button.btn-warning { background: linear-gradient(135deg, #f39c12, #d68910); }
@@ -211,16 +250,16 @@
         button.btn-gold {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             color: var(--navy);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
         }
+        button.btn-sm { padding: 6px 10px; font-size: 0.75rem; }
 
         .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
 
         .admin-bar {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(135, 206, 235, 0.1));
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(135,206,235,0.1));
             border: 2px solid var(--gold);
-            padding: 14px 16px;
-            border-radius: var(--radius-md);
+            padding: 14px 16px; border-radius: var(--radius-md);
             margin-bottom: 20px;
             display: flex; justify-content: space-between; align-items: center;
             flex-wrap: wrap; gap: 10px;
@@ -235,22 +274,46 @@
         }
 
         .section-title {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--navy);
-            margin: 25px 0 18px;
-            padding-bottom: 10px;
+            font-size: 1.4rem; font-weight: 900; color: var(--navy);
+            margin: 30px 0 18px; padding-bottom: 10px;
             border-bottom: 3px solid var(--gold);
-            display: inline-block;
-            position: relative;
+            display: inline-block; position: relative;
         }
         .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px; left: 0;
-            width: 40px; height: 3px;
-            background: var(--sky);
-            border-radius: 3px;
+            content: ''; position: absolute;
+            bottom: -3px; left: 0; width: 40px; height: 3px;
+            background: var(--sky); border-radius: 3px;
+        }
+        .section-title-wrap { text-align: center; }
+        .section-title-wrap .section-title { display: inline-block; }
+
+        /* ═══ Yeni Gelenler / İndirimler ═══ */
+        .featured-section { margin-bottom: 30px; }
+        .featured-scroll {
+            display: flex; gap: 16px;
+            overflow-x: auto;
+            padding: 8px 4px 16px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+        }
+        .featured-scroll::-webkit-scrollbar { height: 5px; }
+        .featured-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
+        .featured-scroll .product-card {
+            min-width: 230px; max-width: 230px;
+            scroll-snap-align: start;
+        }
+        @media (max-width: 500px) {
+            .featured-scroll .product-card { min-width: 175px; max-width: 175px; }
+        }
+
+        .new-badge {
+            position: absolute; top: 10px; right: 10px;
+            background: linear-gradient(135deg, var(--sky-dark), var(--sky));
+            color: var(--white);
+            padding: 5px 10px; border-radius: 12px;
+            font-size: 0.7rem; font-weight: 800;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(135,206,235,0.5);
         }
 
         .products-grid {
@@ -269,18 +332,15 @@
             .product-actions { flex-direction: column; }
             .product-actions button { width: 100%; padding: 8px 5px; }
             .hero-title { font-size: 1.35rem; }
-            .hero-logo-wrap { width: 90px; height: 90px; }
+            .hero-logo-wrap, .hero-logo-img { width: 85px; height: 85px; }
         }
 
         .product-card {
-            background: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
+            background: var(--white); border-radius: var(--radius-md);
+            overflow: hidden; box-shadow: var(--shadow-sm);
             display: flex; flex-direction: column;
-            position: relative;
-            transition: all 0.3s;
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative; transition: all 0.3s;
+            border: 1px solid rgba(212,175,55,0.1);
         }
         .product-card:hover {
             box-shadow: var(--shadow-lg);
@@ -290,31 +350,26 @@
         .product-badge-discount {
             position: absolute; top: 10px; left: 10px;
             background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 5px 10px; border-radius: 12px;
+            color: white; padding: 5px 10px; border-radius: 12px;
             font-size: 0.75rem; font-weight: 800;
             z-index: 2;
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 4px 12px rgba(231,76,60,0.4);
         }
         .product-card img {
-            width: 100%; height: 220px;
-            object-fit: contain;
+            width: 100%; height: 220px; object-fit: contain;
             background: linear-gradient(135deg, #f8fafc, #eef4f8);
-            cursor: pointer;
-            transition: transform 0.4s;
+            cursor: pointer; transition: transform 0.4s;
         }
         .product-card:hover img { transform: scale(1.05); }
         .product-info {
-            padding: 14px;
-            flex-grow: 1;
+            padding: 14px; flex-grow: 1;
             display: flex; flex-direction: column;
             justify-content: space-between;
         }
         .product-title {
             font-size: 1rem; margin-bottom: 8px;
             color: var(--navy); font-weight: 700;
-            cursor: pointer;
-            line-height: 1.4;
+            cursor: pointer; line-height: 1.4;
         }
         .price-row {
             display: flex; align-items: baseline;
@@ -323,8 +378,7 @@
         .product-price {
             font-size: 1.15rem; font-weight: 900;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .product-price-old {
@@ -337,54 +391,40 @@
         .cart-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--white);
-            padding: 14px 18px;
+            color: var(--white); padding: 14px 18px;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 -4px 20px rgba(26, 41, 66, 0.3);
-            z-index: 90;
-            border-top: 3px solid var(--gold);
+            box-shadow: 0 -4px 20px rgba(26,41,66,0.3);
+            z-index: 90; border-top: 3px solid var(--gold);
         }
         .cart-bar-info { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
-        .cart-bar-info strong {
-            color: var(--gold);
-            font-size: 1.2rem;
-            font-weight: 900;
-        }
+        .cart-bar-info strong { color: var(--gold); font-size: 1.2rem; font-weight: 900; }
         .cart-bar .btn-success {
             background: linear-gradient(135deg, #25d366 0%, #1ebd59 100%);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 12px rgba(37,211,102,0.4);
         }
 
         #scrollTopBtn {
             position: fixed; bottom: 90px; right: 20px;
             display: none; z-index: 99;
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--navy);
-            border: none; border-radius: 50%;
-            width: 52px; height: 52px;
-            font-size: 24px; cursor: pointer;
-            line-height: 1; padding: 0;
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-            font-weight: 900;
-            transition: all 0.3s;
+            color: var(--navy); border: none; border-radius: 50%;
+            width: 52px; height: 52px; font-size: 24px;
+            cursor: pointer; line-height: 1; padding: 0;
+            box-shadow: 0 6px 20px rgba(212,175,55,0.4);
+            font-weight: 900; transition: all 0.3s;
         }
-        #scrollTopBtn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.6);
-        }
+        #scrollTopBtn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(212,175,55,0.6); }
 
         .modal {
             display: none; position: fixed; inset: 0;
-            background: rgba(26, 41, 66, 0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(26,41,66,0.7); backdrop-filter: blur(4px);
             justify-content: center; align-items: center;
             z-index: 1000; padding: 15px;
             animation: fadeIn 0.2s ease;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .modal-content {
-            background: var(--white);
-            padding: 24px;
+            background: var(--white); padding: 24px;
             border-radius: var(--radius-lg);
             width: 100%; max-width: 500px;
             max-height: 90vh; overflow-y: auto;
@@ -400,9 +440,7 @@
             display: flex; justify-content: space-between;
             align-items: center; margin-bottom: 18px;
         }
-        .modal-content h2 {
-            font-size: 1.3rem; font-weight: 900; color: var(--navy);
-        }
+        .modal-content h2 { font-size: 1.3rem; font-weight: 900; color: var(--navy); }
         .modal-actions {
             display: flex; justify-content: flex-end;
             gap: 10px; margin-top: 18px; flex-wrap: wrap;
@@ -411,23 +449,19 @@
         .form-group { margin-bottom: 14px; }
         .form-group label {
             display: block; margin-bottom: 6px;
-            font-weight: 700; font-size: 0.9rem;
-            color: var(--navy);
+            font-weight: 700; font-size: 0.9rem; color: var(--navy);
         }
         .form-group input, .form-group textarea, .form-group select {
             width: 100%; padding: 12px 14px;
-            border: 2px solid #e8ecf0;
-            border-radius: var(--radius-sm);
+            border: 2px solid #e8ecf0; border-radius: var(--radius-sm);
             font-size: 16px; font-family: inherit;
-            background: var(--cream);
-            font-weight: 500;
+            background: var(--cream); font-weight: 500;
             transition: all 0.2s;
         }
         .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--gold);
+            outline: none; border-color: var(--gold);
             background: var(--white);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
         }
         .form-group textarea { resize: vertical; min-height: 80px; }
         .price-hint { font-size: 0.75rem; color: var(--text-light); margin-top: 5px; font-weight: 500; }
@@ -442,12 +476,9 @@
         }
 
         .img-preview {
-            width: 100%; max-height: 220px;
-            object-fit: contain;
-            border-radius: var(--radius-sm);
-            margin-top: 10px;
-            background: var(--cream);
-            display: none;
+            width: 100%; max-height: 220px; object-fit: contain;
+            border-radius: var(--radius-sm); margin-top: 10px;
+            background: var(--cream); display: none;
             border: 2px solid #e8ecf0;
         }
 
@@ -474,18 +505,16 @@
         .detail-discount {
             display: inline-block;
             background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 5px 12px; border-radius: 12px;
+            color: white; padding: 5px 12px; border-radius: 12px;
             font-size: 0.85rem; font-weight: 800;
             margin-bottom: 10px;
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 4px 12px rgba(231,76,60,0.3);
         }
         #detail-img {
             width: 100%; max-height: 420px; height: auto;
             object-fit: contain;
             background: linear-gradient(135deg, #f8fafc, #eef4f8);
-            border-radius: var(--radius-md);
-            margin-bottom: 14px;
+            border-radius: var(--radius-md); margin-bottom: 14px;
         }
         #detail-title { color: var(--navy); font-weight: 900; }
         #detail-desc {
@@ -498,34 +527,61 @@
         }
 
         .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            color: var(--text-light);
-            padding: 40px 20px;
-            font-size: 1rem;
-            font-weight: 500;
+            grid-column: 1 / -1; text-align: center;
+            color: var(--text-light); padding: 40px 20px;
+            font-size: 1rem; font-weight: 500;
         }
 
         .footer {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--white);
-            padding: 24px 20px;
-            margin-top: 40px;
-            text-align: center;
+            color: var(--white); padding: 30px 20px 24px;
+            margin-top: 40px; text-align: center;
             border-top: 3px solid var(--gold);
             border-radius: 20px 20px 0 0;
         }
         .footer-title {
-            font-size: 1.1rem; font-weight: 900;
+            font-size: 1.15rem; font-weight: 900;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 8px;
         }
         .footer-text {
-            font-size: 0.85rem; color: var(--sky-light);
-            font-weight: 500;
+            font-size: 0.85rem; color: var(--sky-light); font-weight: 500;
+        }
+        .footer-divider {
+            width: 60px; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 14px auto; border-radius: 2px;
+        }
+
+        /* ═══ Slider Yönetim (Admin) ═══ */
+        .slider-thumbs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .slider-thumb {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 2px solid #e8ecf0;
+            background: var(--cream);
+        }
+        .slider-thumb img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .slider-thumb .remove-btn {
+            position: absolute; top: 4px; right: 4px;
+            background: var(--danger); color: white;
+            width: 24px; height: 24px;
+            border-radius: 50%; padding: 0;
+            font-size: 12px; font-weight: 900;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 6px rgba(231,76,60,0.5);
         }
     </style>
 </head>
@@ -536,36 +592,25 @@
         <span>جاري التحميل...</span>
     </div>
 
-    <!-- ═══ HERO BANNER (SVG Logo) ═══ -->
+    <!-- ═══ Ücretsiz Kargo Şeridi ═══ -->
+    <div class="shipping-bar" id="shippingBar">🚚 احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر</div>
+
+    <!-- ═══ HERO ═══ -->
     <section class="hero">
-        <div class="hero-logo-wrap">
+        <div class="hero-logo-wrap" id="heroLogoSvg">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#E8C766;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#B8942E;stop-opacity:1" />
+                        <stop offset="0%" style="stop-color:#E8C766"/>
+                        <stop offset="50%" style="stop-color:#D4AF37"/>
+                        <stop offset="100%" style="stop-color:#B8942E"/>
                     </linearGradient>
                 </defs>
-                <!-- Dış çember (altın) -->
                 <circle cx="50" cy="50" r="46" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0.6"/>
-                <!-- Stilize "M" harfi (dalga motifi) - Ana çizgi -->
-                <path d="M 50 15 
-                         Q 38 32 42 45 
-                         Q 46 55 50 50 
-                         Q 54 45 58 55 
-                         Q 62 68 50 85" 
-                      stroke="url(#goldGrad)" stroke-width="5" 
-                      fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- Sol dal -->
-                <path d="M 35 30 Q 30 42 38 50" 
-                      stroke="url(#goldGrad)" stroke-width="3.5" 
-                      fill="none" stroke-linecap="round"/>
-                <!-- Sağ dal -->
-                <path d="M 65 30 Q 70 42 62 50" 
-                      stroke="url(#goldGrad)" stroke-width="3.5" 
-                      fill="none" stroke-linecap="round"/>
-                <!-- Alt dekoratif noktalar -->
+                <path d="M 50 15 Q 38 32 42 45 Q 46 55 50 50 Q 54 45 58 55 Q 62 68 50 85" 
+                      stroke="url(#goldGrad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M 35 30 Q 30 42 38 50" stroke="url(#goldGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                <path d="M 65 30 Q 70 42 62 50" stroke="url(#goldGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
                 <circle cx="50" cy="88" r="2.5" fill="url(#goldGrad)"/>
                 <circle cx="38" cy="55" r="1.8" fill="url(#goldGrad)" opacity="0.7"/>
                 <circle cx="62" cy="55" r="1.8" fill="url(#goldGrad)" opacity="0.7"/>
@@ -574,10 +619,20 @@
         <img class="hero-logo-img" id="heroLogoImg" alt="Logo">
         <h1 class="hero-title" id="heroTitle">متجر ميار كوزمتيك</h1>
         <div class="hero-divider"></div>
-        <p class="hero-subtitle">جمالك يبدأ من هنا ✨</p>
+        <p class="hero-subtitle" id="heroSubtitle">جمالك يبدأ من هنا ✨</p>
     </section>
 
-    <!-- ═══ HEADER ═══ -->
+    <!-- ═══ SLIDER ═══ -->
+    <div class="slider-container" id="sliderContainer" style="display: none;">
+        <div class="slider">
+            <div class="slider-track" id="sliderTrack"></div>
+            <button class="slider-nav slider-prev" onclick="sliderPrev()">‹</button>
+            <button class="slider-nav slider-next" onclick="sliderNext()">›</button>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+    </div>
+
+    <!-- ═══ Header ═══ -->
     <header>
         <div class="header-top">
             <div class="header-btns">
@@ -589,10 +644,10 @@
         </div>
     </header>
 
-    <!-- ═══ CATEGORIES ═══ -->
+    <!-- ═══ Kategoriler ═══ -->
     <div id="categoriesBar" class="categories-bar"></div>
 
-    <!-- ═══ MAIN CONTENT ═══ -->
+    <!-- ═══ İÇERİK ═══ -->
     <div class="container">
         <div id="adminBar" class="admin-bar" style="display: none;">
             <div>
@@ -601,15 +656,35 @@
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                 <button onclick="openProductForm()" class="btn-gold">➕ إضافة منتج</button>
+                <button onclick="openSiteSettings()" class="btn-warning">⚙️ إعدادات الموقع</button>
                 <button onclick="handleSupabaseLogout()" class="btn-danger">🚪 خروج</button>
             </div>
         </div>
 
-        <h2 class="section-title" id="productsTitle">🛍️ المنتجات</h2>
+        <!-- Yeni Gelenler -->
+        <section class="featured-section" id="newArrivalsSection" style="display: none;">
+            <div class="section-title-wrap">
+                <h2 class="section-title">✨ وصل حديثاً</h2>
+            </div>
+            <div class="featured-scroll" id="newArrivalsScroll"></div>
+        </section>
+
+        <!-- İndirimler -->
+        <section class="featured-section" id="discountsSection" style="display: none;">
+            <div class="section-title-wrap">
+                <h2 class="section-title">🔥 عروض وخصومات</h2>
+            </div>
+            <div class="featured-scroll" id="discountsScroll"></div>
+        </section>
+
+        <!-- Tüm Ürünler -->
+        <div class="section-title-wrap">
+            <h2 class="section-title">🛍️ جميع المنتجات</h2>
+        </div>
         <div id="productsGrid" class="products-grid"></div>
     </div>
 
-    <!-- ═══ CART BAR ═══ -->
+    <!-- ═══ Cart Bar ═══ -->
     <div class="cart-bar">
         <div class="cart-bar-info">
             <span>المجموع:</span>
@@ -624,10 +699,11 @@
     <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
         <div class="footer-title">متجر ميار كوزمتيك</div>
+        <div class="footer-divider"></div>
         <div class="footer-text">© 2026 جميع الحقوق محفوظة</div>
     </footer>
 
-    <!-- ═══ PRODUCT DETAIL MODAL ═══ -->
+    <!-- ═══ Product Detail Modal ═══ -->
     <div id="productDetailModal" class="modal" onclick="closeModalOnBackdrop(event, 'productDetailModal')">
         <div class="modal-content" style="text-align:center;">
             <img id="detail-img" src="" loading="lazy">
@@ -644,12 +720,12 @@
         </div>
     </div>
 
-    <!-- ═══ CART MODAL ═══ -->
+    <!-- ═══ Cart Modal ═══ -->
     <div id="cartModal" class="modal" onclick="closeModalOnBackdrop(event, 'cartModal')">
         <div class="modal-content">
             <div class="modal-header-row">
                 <h2>🛒 سلة التسوق</h2>
-                <button onclick="clearCart()" class="btn-danger" style="font-size:0.8rem; padding:8px 12px;">🗑️ تفريغ</button>
+                <button onclick="clearCart()" class="btn-danger btn-sm">🗑️ تفريغ</button>
             </div>
             <div id="cartList"></div>
             <div class="modal-actions">
@@ -658,7 +734,7 @@
         </div>
     </div>
 
-    <!-- ═══ LOGIN MODAL ═══ -->
+    <!-- ═══ Login Modal ═══ -->
     <div id="loginModal" class="modal" onclick="closeModalOnBackdrop(event, 'loginModal')">
         <div class="modal-content">
             <h2 style="margin-bottom:18px; text-align:center;">🔐 دخول المسؤول</h2>
@@ -682,7 +758,7 @@
         </div>
     </div>
 
-    <!-- ═══ PRODUCT FORM MODAL ═══ -->
+    <!-- ═══ Product Form Modal ═══ -->
     <div id="productFormModal" class="modal" onclick="closeModalOnBackdrop(event, 'productFormModal')">
         <div class="modal-content">
             <h2 id="product-form-title" style="margin-bottom:18px;">➕ إضافة منتج</h2>
@@ -721,6 +797,52 @@
         </div>
     </div>
 
+    <!-- ═══ Site Settings Modal ═══ -->
+    <div id="siteSettingsModal" class="modal" onclick="closeModalOnBackdrop(event, 'siteSettingsModal')">
+        <div class="modal-content">
+            <h2 style="margin-bottom:18px;">⚙️ إعدادات الموقع</h2>
+
+            <!-- Logo -->
+            <div class="form-group">
+                <label>🖼️ شعار الموقع (Logo)</label>
+                <input type="file" id="ss-logo-file" accept="image/*" onchange="previewSiteLogo(this)">
+                <img id="ss-logo-preview" class="img-preview" alt="Logo">
+                <div class="price-hint">اتركه فارغاً لاستخدام الشعار الافتراضي</div>
+            </div>
+
+            <!-- Hero Title -->
+            <div class="form-group">
+                <label>📝 عنوان الموقع</label>
+                <input type="text" id="ss-hero-title" placeholder="متجر ميار كوزمتيك">
+            </div>
+
+            <!-- Hero Subtitle -->
+            <div class="form-group">
+                <label>💬 العنوان الفرعي</label>
+                <input type="text" id="ss-hero-subtitle" placeholder="جمالك يبدأ من هنا ✨">
+            </div>
+
+            <!-- Free shipping -->
+            <div class="form-group">
+                <label>🚚 نص الشحن المجاني</label>
+                <input type="text" id="ss-shipping-text" placeholder="احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر">
+            </div>
+
+            <!-- Slider Images -->
+            <div class="form-group">
+                <label>🎨 صور البانر (Slider)</label>
+                <input type="file" id="ss-slider-file" accept="image/*" multiple onchange="uploadSliderImages(this)">
+                <div class="price-hint">يمكنك اختيار عدة صور. سيتم عرضها كبانر متحرك</div>
+                <div class="slider-thumbs" id="ss-slider-thumbs"></div>
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="saveSiteSettings()" class="btn-success" id="ss-save-btn">💾 حفظ</button>
+                <button onclick="closeModalAndPopHistory('siteSettingsModal')" class="btn-danger">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const SUPABASE_URL = 'https://xmrdqepjtfycvtgcbkyy.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_MgJhvhCdIg9oC40t--FZxQ_04A8dWkU';
@@ -729,6 +851,12 @@
         let isAdmin = false;
         let sessionToken = null;
         let catalogConfig = { twochat_api_key: '', twochat_phone: '' };
+        let siteSettings = {
+            logo_url: '', hero_title: 'متجر ميار كوزمتيك',
+            hero_subtitle: 'جمالك يبدأ من هنا ✨',
+            free_shipping_text: 'احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر',
+            slider_images: []
+        };
 
         let cart = JSON.parse(localStorage.getItem('catalog_cart')) || [];
         let currentProducts = [];
@@ -741,6 +869,13 @@
         let currentImageUrl = '';
         let currentImagePreview = '';
         let modalHistoryStack = [];
+
+        let siteLogoFile = null;
+        let siteLogoTempUrl = '';
+        let sliderTempImages = [];
+        let sliderFiles = [];
+        let currentSlide = 0;
+        let sliderAutoplayTimer = null;
 
         function initSupabase() {
             try {
@@ -764,13 +899,109 @@
                 const { data } = await _supabase
                     .from('settings')
                     .select('twochat_api_key, twochat_phone')
-                    .eq('id', 1)
-                    .maybeSingle();
+                    .eq('id', 1).maybeSingle();
                 if (data) {
                     catalogConfig.twochat_api_key = data.twochat_api_key || '';
                     catalogConfig.twochat_phone = data.twochat_phone || '';
                 }
             } catch (e) { console.warn('Config:', e); }
+        }
+
+        async function loadSiteSettings() {
+            if (!_supabase) return;
+            try {
+                const { data } = await _supabase
+                    .from('site_settings')
+                    .select('*')
+                    .eq('id', 1).maybeSingle();
+                if (data) {
+                    siteSettings.logo_url = data.logo_url || '';
+                    siteSettings.hero_title = data.hero_title || 'متجر ميار كوزمتيك';
+                    siteSettings.hero_subtitle = data.hero_subtitle || 'جمالك يبدأ من هنا ✨';
+                    siteSettings.free_shipping_text = data.free_shipping_text || 'احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر';
+                    siteSettings.slider_images = Array.isArray(data.slider_images) ? data.slider_images : [];
+                }
+                applySiteSettings();
+            } catch (e) { console.warn('SiteSettings:', e); }
+        }
+
+        function applySiteSettings() {
+            const logoImg = document.getElementById('heroLogoImg');
+            const logoSvg = document.getElementById('heroLogoSvg');
+            if (siteSettings.logo_url) {
+                logoImg.src = siteSettings.logo_url;
+                logoImg.style.display = 'block';
+                logoSvg.style.display = 'none';
+            } else {
+                logoImg.style.display = 'none';
+                logoSvg.style.display = 'flex';
+            }
+            document.getElementById('heroTitle').innerText = siteSettings.hero_title || 'متجر ميار كوزمتيك';
+            document.getElementById('heroSubtitle').innerText = siteSettings.hero_subtitle || '';
+            document.getElementById('shippingBar').innerText = '🚚 ' + (siteSettings.free_shipping_text || '');
+
+            renderSlider();
+        }
+
+        function renderSlider() {
+            const container = document.getElementById('sliderContainer');
+            const track = document.getElementById('sliderTrack');
+            const dots = document.getElementById('sliderDots');
+            const images = siteSettings.slider_images || [];
+
+            if (images.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+            container.style.display = 'block';
+            track.innerHTML = '';
+            dots.innerHTML = '';
+
+            images.forEach((url, i) => {
+                const slide = document.createElement('div');
+                slide.className = 'slider-slide';
+                slide.innerHTML = `<img src="${escapeHtml(url)}" alt="Slide ${i+1}">`;
+                track.appendChild(slide);
+
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                dots.appendChild(dot);
+            });
+
+            currentSlide = 0;
+            updateSlider();
+            startSliderAutoplay();
+        }
+
+        function updateSlider() {
+            const track = document.getElementById('sliderTrack');
+            if (!track) return;
+            track.style.transform = `translateX(${currentSlide * 100}%)`;
+            document.querySelectorAll('.slider-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function goToSlide(idx) {
+            const images = siteSettings.slider_images || [];
+            if (images.length === 0) return;
+            currentSlide = idx % images.length;
+            if (currentSlide < 0) currentSlide = images.length - 1;
+            updateSlider();
+        }
+
+        function sliderNext() { goToSlide(currentSlide + 1); startSliderAutoplay(); }
+        function sliderPrev() { goToSlide(currentSlide - 1); startSliderAutoplay(); }
+
+        function startSliderAutoplay() {
+            if (sliderAutoplayTimer) clearInterval(sliderAutoplayTimer);
+            const images = siteSettings.slider_images || [];
+            if (images.length < 2) return;
+            sliderAutoplayTimer = setInterval(() => {
+                currentSlide = (currentSlide + 1) % images.length;
+                updateSlider();
+            }, 5000);
         }
 
         function imageUrl(url) {
@@ -889,11 +1120,53 @@
 
                 renderCategories();
                 applyLocalFilter();
+                renderFeaturedSections();
             } catch (err) {
                 console.error('Catalog:', err);
                 document.getElementById('productsGrid').innerHTML =
                     `<p class="empty-state" style="color:#e74c3c;">⚠️ تعذر تحميل البيانات: ${err.message}</p>`;
             } finally { hideLoadingScreen(); }
+        }
+
+        function renderFeaturedSections() {
+            // Yeni Gelenler: son eklenen 8 ürün
+            const sorted = currentProducts.slice().sort((a, b) => {
+                const da = new Date(a.synced_at || 0);
+                const db = new Date(b.synced_at || 0);
+                return db - da;
+            });
+            const newArrivals = sorted.slice(0, 10);
+            const newSection = document.getElementById('newArrivalsSection');
+            const newScroll = document.getElementById('newArrivalsScroll');
+
+            if (newArrivals.length > 0) {
+                newSection.style.display = 'block';
+                newScroll.innerHTML = '';
+                newArrivals.forEach(p => {
+                    const card = createProductCardElement(p, true);
+                    newScroll.appendChild(card);
+                });
+            } else {
+                newSection.style.display = 'none';
+            }
+
+            // İndirimler
+            const discounted = currentProducts.filter(p => calcDiscount(p) > 0)
+                .sort((a, b) => calcDiscount(b) - calcDiscount(a))
+                .slice(0, 10);
+            const discSection = document.getElementById('discountsSection');
+            const discScroll = document.getElementById('discountsScroll');
+
+            if (discounted.length > 0) {
+                discSection.style.display = 'block';
+                discScroll.innerHTML = '';
+                discounted.forEach(p => {
+                    const card = createProductCardElement(p, false);
+                    discScroll.appendChild(card);
+                });
+            } else {
+                discSection.style.display = 'none';
+            }
         }
 
         function applyLocalFilter() {
@@ -923,11 +1196,11 @@
                 return;
             }
             const frag = document.createDocumentFragment();
-            filteredProducts.forEach(p => frag.appendChild(createProductCardElement(p)));
+            filteredProducts.forEach(p => frag.appendChild(createProductCardElement(p, false)));
             grid.appendChild(frag);
         }
 
-        function createProductCardElement(p) {
+        function createProductCardElement(p, isNew = false) {
             const name = p.name_ar || p.name_tr || 'منتج';
             const img = imageUrl(p.img);
             const idStr = String(p.id);
@@ -937,6 +1210,7 @@
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
+                ${isNew ? `<span class="new-badge">✨ جديد</span>` : ''}
                 ${hasDiscount ? `<span class="product-badge-discount">-${discount}%</span>` : ''}
                 <img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" onclick="openProductDetail('${idStr}')" loading="lazy">
                 <div class="product-info">
@@ -1087,11 +1361,8 @@
             const name = p.name_ar || p.name_tr || 'منتج';
             const discount = calcDiscount(p);
             let msg = `${name}\n`;
-            if (discount > 0) {
-                msg += `🔥 خصم ${discount}%\n💰 ${p.price} ₺ بدلاً من ${p.original_price} ₺\n`;
-            } else {
-                msg += `💰 ${p.price} ₺\n`;
-            }
+            if (discount > 0) msg += `🔥 خصم ${discount}%\n💰 ${p.price} ₺ بدلاً من ${p.original_price} ₺\n`;
+            else msg += `💰 ${p.price} ₺\n`;
             msg += `🔗 ${getProductLink(id)}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
@@ -1185,9 +1456,9 @@
             });
         }
 
-        async function uploadImage(file) {
+        async function uploadImage(file, customMaxWidth = 1000, customQuality = 0.8) {
             if (!isAdmin || !sessionToken) throw new Error('غير مصرح');
-            const compressed = await compressImage(file);
+            const compressed = await compressImage(file, customMaxWidth, customQuality);
             const base64 = await new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onload = e => resolve(e.target.result);
@@ -1267,6 +1538,136 @@
                 alert('✅ تم حذف المنتج');
                 await loadCatalog(true);
             } catch (err) { alert('❌ خطأ في الحذف: ' + err.message); }
+        }
+
+        // ═══ Site Settings (Logo + Slider) ═══
+        function openSiteSettings() {
+            if (!isAdmin) { alert('يجب تسجيل الدخول أولاً'); return; }
+
+            siteLogoFile = null;
+            siteLogoTempUrl = siteSettings.logo_url || '';
+            sliderTempImages = (siteSettings.slider_images || []).slice();
+            sliderFiles = [];
+
+            document.getElementById('ss-hero-title').value = siteSettings.hero_title || '';
+            document.getElementById('ss-hero-subtitle').value = siteSettings.hero_subtitle || '';
+            document.getElementById('ss-shipping-text').value = siteSettings.free_shipping_text || '';
+            document.getElementById('ss-logo-file').value = '';
+            document.getElementById('ss-slider-file').value = '';
+
+            const logoPreview = document.getElementById('ss-logo-preview');
+            if (siteSettings.logo_url) {
+                logoPreview.src = siteSettings.logo_url;
+                logoPreview.style.display = 'block';
+            } else {
+                logoPreview.style.display = 'none';
+            }
+
+            renderSliderThumbs();
+            openModal('siteSettingsModal');
+        }
+
+        function previewSiteLogo(input) {
+            const file = input.files[0];
+            const preview = document.getElementById('ss-logo-preview');
+            if (file) {
+                siteLogoFile = file;
+                const reader = new FileReader();
+                reader.onload = e => {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function renderSliderThumbs() {
+            const container = document.getElementById('ss-slider-thumbs');
+            container.innerHTML = '';
+            sliderTempImages.forEach((url, idx) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'slider-thumb';
+                thumb.innerHTML = `
+                    <img src="${escapeHtml(url)}" alt="slide">
+                    <button class="remove-btn" onclick="removeSliderImage(${idx})">✕</button>
+                `;
+                container.appendChild(thumb);
+            });
+        }
+
+        function removeSliderImage(idx) {
+            sliderTempImages.splice(idx, 1);
+            renderSliderThumbs();
+        }
+
+        async function uploadSliderImages(input) {
+            const files = Array.from(input.files || []);
+            if (files.length === 0) return;
+
+            const btn = document.getElementById('ss-save-btn');
+            const oldText = btn.innerText;
+            btn.innerText = '⏳ جاري رفع البانر...';
+            btn.disabled = true;
+
+            try {
+                for (const file of files) {
+                    const url = await uploadImage(file, 1400, 0.85);
+                    sliderTempImages.push(url);
+                }
+                renderSliderThumbs();
+                alert(`✅ تم رفع ${files.length} صورة`);
+            } catch (err) {
+                alert('❌ خطأ في رفع الصور: ' + err.message);
+            } finally {
+                btn.innerText = oldText;
+                btn.disabled = false;
+                input.value = '';
+            }
+        }
+
+        async function saveSiteSettings() {
+            if (!isAdmin || !_supabase) { alert('غير مصرح'); return; }
+
+            const btn = document.getElementById('ss-save-btn');
+            const oldText = btn.innerText;
+            btn.innerText = '⏳ جاري الحفظ...';
+            btn.disabled = true;
+
+            try {
+                let logoUrl = siteLogoTempUrl;
+                if (siteLogoFile) logoUrl = await uploadImage(siteLogoFile, 400, 0.9);
+
+                const payload = {
+                    logo_url: logoUrl,
+                    hero_title: document.getElementById('ss-hero-title').value.trim() || 'متجر ميار كوزمتيك',
+                    hero_subtitle: document.getElementById('ss-hero-subtitle').value.trim(),
+                    free_shipping_text: document.getElementById('ss-shipping-text').value.trim(),
+                    slider_images: sliderTempImages,
+                    updated_at: new Date().toISOString()
+                };
+
+                const { error } = await _supabase
+                    .from('site_settings')
+                    .update(payload)
+                    .eq('id', 1);
+                if (error) throw error;
+
+                siteSettings.logo_url = payload.logo_url;
+                siteSettings.hero_title = payload.hero_title;
+                siteSettings.hero_subtitle = payload.hero_subtitle;
+                siteSettings.free_shipping_text = payload.free_shipping_text;
+                siteSettings.slider_images = payload.slider_images;
+
+                applySiteSettings();
+                alert('✅ تم حفظ إعدادات الموقع');
+                closeModalAndPopHistory('siteSettingsModal');
+            } catch (err) {
+                alert('❌ خطأ: ' + err.message);
+                console.error(err);
+            } finally {
+                btn.innerText = oldText;
+                btn.disabled = false;
+            }
         }
 
         function handleSearch(val) {
@@ -1374,6 +1775,7 @@
                 }
 
                 await loadCatalogConfig();
+                await loadSiteSettings();
                 await loadCatalog();
             } catch (err) { console.error('Init:', err); hideLoadingScreen(); }
 
