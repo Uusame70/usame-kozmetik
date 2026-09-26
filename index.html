@@ -41,26 +41,12 @@
                 flex-shrink: 0; }
         .icon-sm { width: 0.95em; height: 0.95em; }
         .icon-lg { width: 1.4em; height: 1.4em; }
-        .icon-gold { stroke: var(--gold); }
-        .icon-navy { stroke: var(--navy); }
 
-        /* ═══ ANIMASYONLAR ═══ */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes fadeInUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-
-        .animate-fade-in { animation: fadeIn 0.6s ease; }
-        .animate-slide-up { animation: slideUp 0.5s ease; }
-        .animate-fade-in-up { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .animate-fade-in-up.visible { opacity: 1; transform: translateY(0); }
-        .animate-scale-in { animation: scaleIn 0.4s ease; }
-
-        .product-card { opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s, border-color 0.3s; }
-        .product-card.revealed { opacity: 1; transform: translateY(0); }
-        .product-card.revealed:hover { transform: translateY(-6px); }
 
         #loadingScreen {
             position: fixed; inset: 0;
@@ -77,15 +63,11 @@
         .shipping-bar {
             background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
             background-size: 200% 100%;
-            color: var(--navy);
-            text-align: center;
+            color: var(--navy); text-align: center;
             padding: 10px 15px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            letter-spacing: 0.3px;
+            font-size: 0.85rem; font-weight: 800; letter-spacing: 0.3px;
             animation: shimmer 4s ease-in-out infinite;
-            position: relative;
-            z-index: 101;
+            position: relative; z-index: 101;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             transition: all 0.3s;
         }
@@ -101,15 +83,13 @@
             content: ''; position: absolute; top: -50%; right: -20%;
             width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 6s ease-in-out infinite;
+            border-radius: 50%; animation: pulse 6s ease-in-out infinite;
         }
         .hero::after {
             content: ''; position: absolute; bottom: -30%; left: -20%;
             width: 350px; height: 350px;
             background: radial-gradient(circle, rgba(135,206,235,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 8s ease-in-out infinite;
+            border-radius: 50%; animation: pulse 8s ease-in-out infinite;
         }
         .hero-logo-wrap {
             width: 100px; height: 100px; margin: 0 auto 14px;
@@ -123,17 +103,14 @@
             width: 100px; height: 100px; object-fit: contain;
             filter: drop-shadow(0 8px 24px rgba(212,175,55,0.5));
             position: relative; z-index: 1;
-            display: none;
-            border-radius: 50%;
+            display: none; border-radius: 50%;
         }
         .hero-title {
             font-size: 1.6rem; font-weight: 900;
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 6px; letter-spacing: 1px;
-            position: relative; z-index: 1;
-            animation: slideUp 0.6s ease;
+            background-clip: text; margin-bottom: 6px; letter-spacing: 1px;
+            position: relative; z-index: 1; animation: slideUp 0.6s ease;
         }
         .hero-subtitle {
             font-size: 0.95rem; color: var(--sky-light); font-weight: 500;
@@ -148,19 +125,13 @@
         }
 
         .slider-container {
-            max-width: 1200px;
-            margin: -30px auto 0;
-            padding: 0 15px;
-            position: relative;
-            z-index: 10;
+            max-width: 1200px; margin: -30px auto 0;
+            padding: 0 15px; position: relative; z-index: 10;
         }
         .slider {
-            position: relative;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            aspect-ratio: 16/6;
-            background: var(--navy);
+            position: relative; border-radius: var(--radius-lg);
+            overflow: hidden; box-shadow: var(--shadow-lg);
+            aspect-ratio: 16/6; background: var(--navy);
         }
         .slider-track { display: flex; height: 100%; transition: transform 0.5s ease; }
         .slider-slide { min-width: 100%; height: 100%; position: relative; }
@@ -210,6 +181,22 @@
             padding: 10px 16px !important;
             display: flex; align-items: center; gap: 6px;
         }
+        .fav-header-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+            color: var(--white) !important; font-weight: 800 !important;
+            box-shadow: 0 4px 12px rgba(231,76,60,0.3) !important;
+            border-radius: var(--radius-sm) !important;
+            padding: 10px 16px !important;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .fav-header-btn:hover {
+            box-shadow: 0 6px 16px rgba(231,76,60,0.5) !important;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 500px) {
+            .fav-header-btn span, .cart-btn span { font-size: 0.75rem; }
+            .fav-header-btn, .cart-btn { padding: 8px 10px !important; }
+        }
         .search-box { width: 100%; position: relative; }
         .search-box .search-icon {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -230,16 +217,13 @@
             box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
         }
 
-        /* ═══ GELİŞMİŞ ARAMA SONUÇLARI ═══ */
         .search-results {
             position: absolute; top: 100%; left: 0; right: 0;
-            margin-top: 6px;
-            background: var(--white);
+            margin-top: 6px; background: var(--white);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-lg);
             max-height: 400px; overflow-y: auto;
-            z-index: 200;
-            display: none;
+            z-index: 200; display: none;
             border: 2px solid var(--gold);
         }
         .search-results.open { display: block; animation: slideUp 0.2s ease; }
@@ -253,8 +237,7 @@
         .search-result-item:hover { background: var(--cream); }
         .search-result-item img {
             width: 50px; height: 50px; object-fit: cover;
-            border-radius: var(--radius-sm);
-            background: var(--cream);
+            border-radius: var(--radius-sm); background: var(--cream);
         }
         .search-result-info { flex-grow: 1; }
         .search-result-name {
@@ -262,107 +245,16 @@
             font-size: 0.9rem; margin-bottom: 2px;
         }
         .search-result-name mark {
-            background: var(--gold-light);
-            color: var(--navy);
+            background: var(--gold-light); color: var(--navy);
             padding: 0 2px; border-radius: 2px;
         }
         .search-result-price {
-            font-weight: 800; color: var(--gold-dark);
-            font-size: 0.85rem;
+            font-weight: 800; color: var(--gold-dark); font-size: 0.85rem;
         }
         .search-no-results {
             padding: 20px; text-align: center;
             color: var(--text-light); font-size: 0.9rem;
         }
-
-        /* ═══ FİLTRE BAR ═══ */
-        .filter-bar {
-            background: var(--white);
-            padding: 12px 15px;
-            border-bottom: 1px solid #e8ecf0;
-            display: flex; gap: 10px; align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .filter-group {
-            display: flex; align-items: center; gap: 6px;
-            background: var(--cream);
-            padding: 6px 12px;
-            border-radius: 25px;
-            border: 1px solid #e8ecf0;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--navy);
-        }
-        .filter-group select, .filter-group input {
-            border: none; background: transparent;
-            font-family: inherit; font-weight: 700;
-            color: var(--navy); font-size: 0.85rem;
-            outline: none; cursor: pointer;
-            padding: 2px 4px;
-        }
-        .filter-group input[type="number"] {
-            width: 70px;
-        }
-        .filter-btn-clear {
-            background: linear-gradient(135deg, var(--navy), var(--navy-light));
-            color: var(--white);
-            padding: 6px 14px; border-radius: 25px;
-            font-size: 0.8rem; font-weight: 700;
-            border: none; cursor: pointer;
-            font-family: inherit;
-            display: inline-flex; align-items: center; gap: 4px;
-            transition: all 0.2s;
-        }
-        .filter-btn-clear:hover { transform: scale(1.05); }
-
-        .categories-bar {
-            display: flex; gap: 10px; overflow-x: auto;
-            padding: 14px 15px; background: var(--white);
-            scrollbar-width: thin; border-bottom: 1px solid #e8ecf0;
-        }
-        .categories-bar::-webkit-scrollbar { height: 3px; }
-        .categories-bar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-        .cat-btn {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--gold); border: 2px solid var(--gold);
-            padding: 9px 20px; border-radius: 25px;
-            white-space: nowrap; font-size: 0.88rem;
-            font-weight: 800; cursor: pointer;
-            transition: all 0.25s; font-family: inherit;
-            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
-            display: inline-flex; align-items: center; gap: 6px;
-        }
-        .cat-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
-        .cat-btn.active {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--navy); border-color: var(--gold-light);
-            box-shadow: 0 4px 14px rgba(212,175,55,0.5);
-        }
-
-        button {
-            cursor: pointer; padding: 10px 14px; border: none;
-            border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--white); font-weight: 700; font-size: 0.85rem;
-            touch-action: manipulation; font-family: inherit;
-            transition: all 0.2s;
-            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-        }
-        button:active { transform: scale(0.97); }
-        button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,41,66,0.2); }
-        button.btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-        button.btn-success { background: linear-gradient(135deg, #27ae60, #229954); }
-        button.btn-warning { background: linear-gradient(135deg, #f39c12, #d68910); }
-        button.btn-whatsapp { background: linear-gradient(135deg, #25d366, #1ebd59); }
-        button.btn-gold {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--navy);
-            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
-        }
-        button.btn-sm { padding: 6px 10px; font-size: 0.75rem; }
-        button.btn-icon { padding: 8px; min-width: 36px; }
 
         .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
 
@@ -418,8 +310,97 @@
             .featured-scroll .product-card { min-width: 175px; max-width: 175px; }
         }
 
+        /* ═══ FİLTRE BAR ═══ */
+        .filter-bar {
+            background: var(--white);
+            padding: 14px 15px;
+            border-top: 2px solid var(--gold);
+            border-bottom: 1px solid #e8ecf0;
+            display: flex; gap: 10px; align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .filter-group {
+            display: flex; align-items: center; gap: 6px;
+            background: var(--cream);
+            padding: 6px 12px;
+            border-radius: 25px;
+            border: 1px solid #e8ecf0;
+            font-size: 0.85rem; font-weight: 600;
+            color: var(--navy);
+        }
+        .filter-group select, .filter-group input {
+            border: none; background: transparent;
+            font-family: inherit; font-weight: 700;
+            color: var(--navy); font-size: 0.85rem;
+            outline: none; cursor: pointer;
+            padding: 2px 4px;
+        }
+        .filter-group input[type="number"] { width: 70px; }
+        .filter-btn-clear {
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: var(--white);
+            padding: 6px 14px; border-radius: 25px;
+            font-size: 0.8rem; font-weight: 700;
+            border: none; cursor: pointer;
+            font-family: inherit;
+            display: inline-flex; align-items: center; gap: 4px;
+            transition: all 0.2s;
+        }
+        .filter-btn-clear:hover { transform: scale(1.05); }
+
+        /* ═══ KATEGORİLER ═══ */
+        .categories-bar {
+            display: flex; gap: 10px; overflow-x: auto;
+            padding: 14px 15px; background: var(--white);
+            scrollbar-width: thin;
+            border-bottom: 1px solid #e8ecf0;
+        }
+        .categories-bar::-webkit-scrollbar { height: 3px; }
+        .categories-bar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+        .cat-btn {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--gold); border: 2px solid var(--gold);
+            padding: 9px 20px; border-radius: 25px;
+            white-space: nowrap; font-size: 0.88rem;
+            font-weight: 800; cursor: pointer;
+            transition: all 0.25s; font-family: inherit;
+            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .cat-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
+        .cat-btn.active {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--navy); border-color: var(--gold-light);
+            box-shadow: 0 4px 14px rgba(212,175,55,0.5);
+        }
+
+        button {
+            cursor: pointer; padding: 10px 14px; border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white); font-weight: 700; font-size: 0.85rem;
+            touch-action: manipulation; font-family: inherit;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        button:active { transform: scale(0.97); }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,41,66,0.2); }
+        button.btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        button.btn-success { background: linear-gradient(135deg, #27ae60, #229954); }
+        button.btn-warning { background: linear-gradient(135deg, #f39c12, #d68910); }
+        button.btn-whatsapp { background: linear-gradient(135deg, #25d366, #1ebd59); }
+        button.btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--navy);
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+        }
+        button.btn-sm { padding: 6px 10px; font-size: 0.75rem; }
+        button.btn-icon { padding: 8px; min-width: 36px; }
+
         .new-badge {
-            position: absolute; top: 10px; right: 10px;
+            position: absolute; top: 10px; right: 54px;
             background: linear-gradient(135deg, var(--sky-dark), var(--sky));
             color: var(--white);
             padding: 5px 10px; border-radius: 12px;
@@ -434,15 +415,12 @@
             position: absolute; top: 10px; right: 10px;
             background: rgba(255,255,255,0.95);
             color: var(--danger);
-            border: none;
-            width: 36px; height: 36px;
+            border: none; width: 36px; height: 36px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-            z-index: 3;
+            cursor: pointer; z-index: 3;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            transition: all 0.2s;
-            padding: 0;
+            transition: all 0.2s; padding: 0;
         }
         .fav-btn:hover { transform: scale(1.1); background: var(--white); }
         .fav-btn.active { background: var(--danger); color: var(--white); }
@@ -474,9 +452,13 @@
             display: flex; flex-direction: column;
             position: relative;
             border: 1px solid rgba(212,175,55,0.1);
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s, border-color 0.3s;
         }
-        .product-card:hover {
+        .product-card.revealed { opacity: 1; transform: translateY(0); }
+        .product-card.revealed:hover {
             box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
             border-color: var(--gold);
         }
         .product-badge-discount {
@@ -682,7 +664,6 @@
         }
         .empty-state .icon { width: 48px; height: 48px; stroke: var(--gold); opacity: 0.5; }
 
-        /* ═══ FOOTER GENİŞLETİLMİŞ ═══ */
         .footer {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
             color: var(--white); padding: 40px 20px 24px;
@@ -706,7 +687,6 @@
             margin-bottom: 14px;
             display: flex; align-items: center; gap: 8px;
         }
-        .footer-col h3 .icon { color: var(--gold); }
         .footer-col p, .footer-col a {
             color: var(--sky-light); font-size: 0.9rem;
             line-height: 1.8; text-decoration: none;
@@ -847,10 +827,14 @@
         </div>
     </div>
 
-    <!-- ═══ Header ═══ -->
+    <!-- ═══ 1. HEADER ═══ -->
     <header>
         <div class="header-top">
             <div class="header-btns">
+                <button class="fav-header-btn" onclick="openFavoritesModal()" title="المفضلة">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <span>المفضلة (<span id="fav-count-header">0</span>)</span>
+                </button>
                 <button class="cart-btn" onclick="openModal('cartModal')">
                     <svg class="icon" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                     <span>السلة (<span id="cart-count">0</span>)</span>
@@ -864,50 +848,7 @@
         </div>
     </header>
 
-    <!-- ═══ Ürünler Başlığı ═══ -->
-    <div class="container" style="margin-bottom: 0;">
-        <div class="section-title-wrap">
-            <h2 class="section-title">
-                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                <span>المنتجات</span>
-            </h2>
-        </div>
-    </div>
-
-    <!-- ═══ Kategoriler ═══ -->
-    <div id="categoriesBar" class="categories-bar"></div>
-
-    <!-- ═══ FİLTRE BAR ═══ -->
-    <div class="filter-bar">
-        <div class="filter-group">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
-            <span>ترتيب:</span>
-            <select id="sortSelect" onchange="applyLocalFilter()">
-                <option value="newest">الأحدث</option>
-                <option value="price-asc">الأرخص أولاً</option>
-                <option value="price-desc">الأغلى أولاً</option>
-                <option value="discount">أعلى خصم</option>
-                <option value="name">الاسم (أ-ي)</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
-            <span>السعر:</span>
-            <input type="number" id="priceMin" placeholder="من" min="0" onchange="applyLocalFilter()">
-            <span>-</span>
-            <input type="number" id="priceMax" placeholder="إلى" min="0" onchange="applyLocalFilter()">
-        </div>
-        <button class="filter-btn-clear" onclick="clearFilters()">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            <span>مسح</span>
-        </button>
-        <button class="filter-btn-clear" onclick="openFavoritesModal()" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            <span>المفضلة (<span id="fav-count">0</span>)</span>
-        </button>
-    </div>
-
-    <!-- ═══ İÇERİK ═══ -->
+    <!-- ═══ 2. ADMIN BAR + 3. YENİ GELENLER + 4. İNDİRİMLER ═══ -->
     <div class="container">
         <div id="adminBar" class="admin-bar" style="display: none;">
             <div>
@@ -934,7 +875,7 @@
             </div>
         </div>
 
-        <!-- Yeni Gelenler -->
+        <!-- 3. Yeni Gelenler -->
         <section class="featured-section" id="newArrivalsSection" style="display: none;">
             <div class="section-title-wrap">
                 <h2 class="section-title">
@@ -945,7 +886,7 @@
             <div class="featured-scroll" id="newArrivalsScroll"></div>
         </section>
 
-        <!-- İndirimler -->
+        <!-- 4. İndirimler -->
         <section class="featured-section" id="discountsSection" style="display: none;">
             <div class="section-title-wrap">
                 <h2 class="section-title">
@@ -955,7 +896,45 @@
             </div>
             <div class="featured-scroll" id="discountsScroll"></div>
         </section>
+    </div>
 
+    <!-- ═══ 5. FİLTRE BAR ═══ -->
+    <div class="filter-bar">
+        <div class="filter-group">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+            <span>ترتيب:</span>
+            <select id="sortSelect" onchange="applyLocalFilter()">
+                <option value="newest">الأحدث</option>
+                <option value="price-asc">الأرخص أولاً</option>
+                <option value="price-desc">الأغلى أولاً</option>
+                <option value="discount">أعلى خصم</option>
+                <option value="name">الاسم (أ-ي)</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+            <span>السعر:</span>
+            <input type="number" id="priceMin" placeholder="من" min="0" onchange="applyLocalFilter()">
+            <span>-</span>
+            <input type="number" id="priceMax" placeholder="إلى" min="0" onchange="applyLocalFilter()">
+        </div>
+        <button class="filter-btn-clear" onclick="clearFilters()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <span>مسح</span>
+        </button>
+    </div>
+
+    <!-- ═══ 6. KATEGORİLER ═══ -->
+    <div id="categoriesBar" class="categories-bar"></div>
+
+    <!-- ═══ 7. ÜRÜNLER BAŞLIĞI + 8. ÜRÜN GRID ═══ -->
+    <div class="container">
+        <div class="section-title-wrap">
+            <h2 class="section-title">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>المنتجات</span>
+            </h2>
+        </div>
         <div id="productsGrid" class="products-grid"></div>
     </div>
 
@@ -980,7 +959,7 @@
         <svg class="icon" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
     </button>
 
-    <!-- ═══ FOOTER GENİŞLETİLMİŞ ═══ -->
+    <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-col">
@@ -1319,7 +1298,6 @@
         let currentSlide = 0;
         let sliderAutoplayTimer = null;
 
-        // ═══ İNİT ═══
         function initSupabase() {
             try {
                 if (typeof supabase !== 'undefined' && supabase.createClient) {
@@ -1328,7 +1306,6 @@
             } catch (e) { console.error('Supabase init:', e); }
         }
 
-        // ═══ PWA ═══
         function registerServiceWorker() {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch(err => {
@@ -1337,7 +1314,6 @@
             }
         }
 
-        // ═══ PASSWORD ═══
         function togglePasswordVisibility() {
             const inp = document.getElementById('login-password');
             const btn = document.getElementById('btn-toggle-pass');
@@ -1351,7 +1327,6 @@
             }
         }
 
-        // ═══ CONFIG ═══
         async function loadCatalogConfig() {
             if (!_supabase) return;
             try {
@@ -1400,7 +1375,6 @@
             document.getElementById('heroTitle').innerText = siteSettings.hero_title || 'متجر ميار كوزمتيك';
             document.getElementById('heroSubtitle').innerText = siteSettings.hero_subtitle || '';
             
-            // WhatsApp iletişim
             const waNumber = siteSettings.whatsapp_number || '905388444275';
             const waLink = 'https://wa.me/' + waNumber.replace(/[^0-9]/g, '');
             const contactWa = document.getElementById('contactWhatsApp');
@@ -1412,7 +1386,6 @@
             renderSlider();
         }
 
-        // ═══ SHIPPING BAR ═══
         function updateShippingBar() {
             const bar = document.getElementById('shippingBar');
             if (!bar) return;
@@ -1441,7 +1414,6 @@
             }
         }
 
-        // ═══ SLIDER ═══
         function renderSlider() {
             const container = document.getElementById('sliderContainer');
             const track = document.getElementById('sliderTrack');
@@ -1503,7 +1475,6 @@
             }, 5000);
         }
 
-        // ═══ IMAGE URL ═══
         function imageUrl(url) {
             if (!url) return 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22200%22><rect width=%22300%22 height=%22200%22 fill=%22%23f8fafc%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23D4AF37%22 font-family=%22Tajawal,sans-serif%22 font-size=%2216%22 font-weight=%22bold%22 text-anchor=%22middle%22 dy=%22.3em%22>لا صورة</text></svg>';
             if (url.startsWith('/api/b2-image')) return url;
@@ -1515,13 +1486,11 @@
             return url;
         }
 
-        // ═══ KATEGORİ ═══
         function parseCategories(str) {
             if (!str) return [];
             return str.split(/[,;\/|]+/).map(s => s.trim()).filter(s => s.length > 0);
         }
 
-        // ═══ YARDIMCI ═══
         function showLoadingScreen() { document.getElementById('loadingScreen').style.display = 'flex'; }
         function hideLoadingScreen() {
             const ls = document.getElementById('loadingScreen');
@@ -1564,7 +1533,6 @@
             return Math.round(((p.original_price - p.price) / p.original_price) * 100);
         }
 
-        // ═══ FAVORİLER ═══
         function isFavorite(id) {
             return favorites.includes(String(id));
         }
@@ -1573,27 +1541,22 @@
             if (event) event.stopPropagation();
             id = String(id);
             const idx = favorites.indexOf(id);
-            if (idx === -1) {
-                favorites.push(id);
-            } else {
-                favorites.splice(idx, 1);
-            }
+            if (idx === -1) favorites.push(id);
+            else favorites.splice(idx, 1);
             localStorage.setItem('catalog_favorites', JSON.stringify(favorites));
             updateFavCount();
             
-            // UI'yı güncelle
             document.querySelectorAll('.fav-btn[data-id="' + id + '"]').forEach(btn => {
                 btn.classList.toggle('active', isFavorite(id));
             });
 
-            // Favorites modalı açıksa listeyi yenile
             if (document.getElementById('favoritesModal').classList.contains('open')) {
                 renderFavoritesList();
             }
         }
 
         function updateFavCount() {
-            const el = document.getElementById('fav-count');
+            const el = document.getElementById('fav-count-header');
             if (el) el.innerText = favorites.length;
         }
 
@@ -1620,7 +1583,6 @@
             }
 
             const trashSvg = '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>';
-            const heartSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
 
             favProducts.forEach(p => {
                 const name = p.name_ar || p.name_tr || 'منتج';
@@ -1643,24 +1605,20 @@
             localStorage.setItem('catalog_favorites', JSON.stringify(favorites));
             updateFavCount();
             renderFavoritesList();
-            // Grid'deki kalp ikonlarını güncelle
             document.querySelectorAll('.fav-btn[data-id="' + id + '"]').forEach(btn => {
                 btn.classList.remove('active');
             });
         }
 
-        // ═══ WHATSAPP ═══
         function openWhatsAppChat() {
             const num = (siteSettings.whatsapp_number || '905388444275').replace(/[^0-9]/g, '');
             const msg = encodeURIComponent('مرحباً، لدي استفسار بخصوص منتجاتكم');
             window.open('https://wa.me/' + num + '?text=' + msg, '_blank');
         }
 
-        // ═══ ABOUT & CONTACT ═══
         function openAboutModal() { openModal('aboutModal'); }
         function openContactModal() { openModal('contactModal'); }
 
-        // ═══ ARAMA ═══
         function handleSearchFocus() {
             const input = document.getElementById('search-input');
             if (input.value.trim().length >= 2) {
@@ -1746,7 +1704,6 @@
             if (box) box.classList.remove('open');
         }
 
-        // Dışarı tıklayınca arama sonuçlarını gizle
         document.addEventListener('click', (e) => {
             const searchBox = document.querySelector('.search-box');
             if (searchBox && !searchBox.contains(e.target)) {
@@ -1754,7 +1711,6 @@
             }
         });
 
-        // ═══ KATEGORİLER ═══
         function renderCategories() {
             const bar = document.getElementById('categoriesBar');
             bar.innerHTML = '';
@@ -1788,7 +1744,6 @@
                 });
             }
         }
-        // ═══ ÜRÜNLERİ YÜKLE ═══
         async function loadCatalog(bust = false) {
             showLoadingScreen();
             try {
@@ -1824,7 +1779,6 @@
             } finally { hideLoadingScreen(); }
         }
 
-        // ═══ ÖNE ÇIKAN BÖLÜMLER ═══
         function renderFeaturedSections() {
             const sorted = currentProducts.slice().sort((a, b) => {
                 const da = new Date(a.synced_at || 0);
@@ -1864,7 +1818,6 @@
             }
         }
 
-        // ═══ FİLTRELEME ═══
         function applyLocalFilter() {
             let list = currentProducts.slice();
 
@@ -1913,7 +1866,6 @@
             applyLocalFilter();
         }
 
-        // ═══ SCROLL REVEAL ═══
         function setupScrollReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1929,7 +1881,6 @@
             });
         }
 
-        // ═══ ÜRÜN KARTLARI ═══
         function renderFilteredProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
@@ -1963,7 +1914,7 @@
             card.className = 'product-card';
             card.innerHTML = `
                 <button class="fav-btn ${fav ? 'active' : ''}" data-id="${idStr}" onclick="toggleFavorite('${idStr}', event)" title="المفضلة">${heartSvg}</button>
-                ${isNew ? '<span class="new-badge" style="right: 54px;">' + sparkleSvg + 'جديد</span>' : ''}
+                ${isNew ? '<span class="new-badge">' + sparkleSvg + 'جديد</span>' : ''}
                 ${hasDiscount ? '<span class="product-badge-discount">-' + discount + '%</span>' : ''}
                 <img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" onclick="openProductDetail('${idStr}')" loading="lazy">
                 <div class="product-info">
@@ -1988,7 +1939,6 @@
             return card;
         }
 
-        // ═══ SEPET ═══
         function renderCart() {
             const cartList = document.getElementById('cartList');
             cartList.innerHTML = '';
@@ -2074,7 +2024,6 @@
             window.open('https://wa.me/' + formatPhoneForWa(orderPhone) + '?text=' + msg, '_blank');
         }
 
-        // ═══ ÜRÜN DETAY ═══
         function openProductDetail(id) {
             id = String(id);
             const p = currentProducts.find(x => String(x.id) === id);
@@ -2129,7 +2078,6 @@
             copyTextToClipboard(getProductLink(id), 'تم نسخ الرابط');
         }
 
-        // ═══ ÜRÜN FORMU ═══
         function openProductForm(id = null) {
             if (!isAdmin) { alert('يجب تسجيل الدخول أولاً'); return; }
 
@@ -2304,7 +2252,6 @@
             } catch (err) { alert('خطأ في الحذف: ' + err.message); }
         }
 
-        // ═══ AYARLAR ═══
         function openSiteSettings() {
             if (!isAdmin) { alert('يجب تسجيل الدخول أولاً'); return; }
 
@@ -2438,7 +2385,6 @@
             }
         }
 
-        // ═══ LOGIN ═══
         async function handleSupabaseLogin() {
             if (!_supabase) { alert('Supabase غير محمل'); return; }
             const email = document.getElementById('login-email').value.trim();
@@ -2472,7 +2418,6 @@
             document.getElementById('adminBar').style.display = isAdmin ? 'flex' : 'none';
         }
 
-        // ═══ MODAL YÖNETİMİ ═══
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
             document.getElementById(id).classList.add('open');
@@ -2512,7 +2457,6 @@
             }
         });
 
-        // ═══ BAŞLAT ═══
         async function init() {
             showLoadingScreen();
             initSupabase();
