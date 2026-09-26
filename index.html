@@ -27,6 +27,16 @@
         body { background-color: var(--cream); color: var(--text); padding-bottom: 100px;
                font-weight: 500; line-height: 1.6; }
 
+        .icon { display: inline-block; vertical-align: middle;
+                width: 1.15em; height: 1.15em; stroke-width: 2.2;
+                fill: none; stroke: currentColor;
+                stroke-linecap: round; stroke-linejoin: round;
+                flex-shrink: 0; }
+        .icon-sm { width: 0.95em; height: 0.95em; }
+        .icon-lg { width: 1.4em; height: 1.4em; }
+        .icon-gold { stroke: var(--gold); }
+        .icon-navy { stroke: var(--navy); }
+
         #loadingScreen {
             position: fixed; inset: 0;
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
@@ -39,26 +49,25 @@
             animation: spin 0.9s linear infinite; margin-bottom: 16px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ═══ Ücretsiz Kargo Şeridi ═══ */
         .shipping-bar {
             background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
             background-size: 200% 100%;
             color: var(--navy);
             text-align: center;
-            padding: 8px 15px;
+            padding: 10px 15px;
             font-size: 0.85rem;
             font-weight: 800;
             letter-spacing: 0.3px;
             animation: shimmer 4s ease-in-out infinite;
             position: relative;
             z-index: 101;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         @keyframes shimmer {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
 
-        /* ═══ HERO ═══ */
         .hero {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--sky-dark) 100%);
             padding: 35px 20px 45px;
@@ -110,7 +119,6 @@
             margin: 12px auto; border-radius: 3px; position: relative; z-index: 1;
         }
 
-        /* ═══ SLIDER ═══ */
         .slider-container {
             max-width: 1200px;
             margin: -30px auto 0;
@@ -135,8 +143,6 @@
             min-width: 100%;
             height: 100%;
             position: relative;
-            background-size: cover;
-            background-position: center;
         }
         .slider-slide img {
             width: 100%; height: 100%; object-fit: cover; display: block;
@@ -149,7 +155,7 @@
             width: 42px; height: 42px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 20px; cursor: pointer;
+            cursor: pointer;
             z-index: 3;
             transition: all 0.2s;
             backdrop-filter: blur(4px);
@@ -170,10 +176,9 @@
         .slider-dot.active { background: var(--gold); border-color: var(--gold); transform: scale(1.2); }
         @media (max-width: 500px) {
             .slider { aspect-ratio: 16/9; }
-            .slider-nav { width: 34px; height: 34px; font-size: 16px; }
+            .slider-nav { width: 34px; height: 34px; }
         }
 
-        /* ═══ Header ═══ */
         header {
             background-color: var(--white);
             padding: 12px 15px;
@@ -192,10 +197,20 @@
             box-shadow: 0 4px 12px rgba(212,175,55,0.3) !important;
             border-radius: var(--radius-sm) !important;
             padding: 10px 16px !important;
+            display: flex; align-items: center; gap: 6px;
         }
-        .search-box { width: 100%; }
+        .search-box { width: 100%; position: relative; }
+        .search-box .search-icon {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            inset-inline-start: 16px;
+            color: var(--text-light);
+            pointer-events: none;
+            z-index: 1;
+        }
         .search-box input {
             width: 100%; padding: 12px 16px;
+            padding-inline-start: 46px;
             border: 2px solid #e8ecf0; border-radius: var(--radius-md);
             font-size: 0.95rem; outline: none;
             background-color: var(--cream);
@@ -206,8 +221,8 @@
             border-color: var(--gold); background-color: var(--white);
             box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
         }
+        .search-box input:focus ~ .search-icon { color: var(--gold); }
 
-        /* ═══ Kategori ═══ */
         .categories-bar {
             display: flex; gap: 10px; overflow-x: auto;
             padding: 14px 15px; background: var(--white);
@@ -223,6 +238,7 @@
             font-weight: 800; cursor: pointer;
             transition: all 0.25s; font-family: inherit;
             box-shadow: 0 2px 6px rgba(26,41,66,0.15);
+            display: inline-flex; align-items: center; gap: 6px;
         }
         .cat-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
         .cat-btn.active {
@@ -231,7 +247,6 @@
             box-shadow: 0 4px 14px rgba(212,175,55,0.5);
         }
 
-        /* ═══ Buttons ═══ */
         button {
             cursor: pointer; padding: 10px 14px; border: none;
             border-radius: var(--radius-sm);
@@ -240,6 +255,7 @@
             touch-action: manipulation; font-family: inherit;
             transition: all 0.2s;
             box-shadow: 0 2px 6px rgba(26,41,66,0.15);
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
         }
         button:active { transform: scale(0.97); }
         button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,41,66,0.2); }
@@ -253,6 +269,7 @@
             box-shadow: 0 4px 12px rgba(212,175,55,0.3);
         }
         button.btn-sm { padding: 6px 10px; font-size: 0.75rem; }
+        button.btn-icon { padding: 8px; min-width: 36px; }
 
         .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
 
@@ -277,17 +294,18 @@
             font-size: 1.4rem; font-weight: 900; color: var(--navy);
             margin: 30px 0 18px; padding-bottom: 10px;
             border-bottom: 3px solid var(--gold);
-            display: inline-block; position: relative;
+            display: inline-flex; align-items: center; gap: 10px;
+            position: relative;
         }
         .section-title::after {
             content: ''; position: absolute;
             bottom: -3px; left: 0; width: 40px; height: 3px;
             background: var(--sky); border-radius: 3px;
         }
+        .section-title .icon { color: var(--gold); }
         .section-title-wrap { text-align: center; }
-        .section-title-wrap .section-title { display: inline-block; }
+        .section-title-wrap .section-title { display: inline-flex; }
 
-        /* ═══ Yeni Gelenler / İndirimler ═══ */
         .featured-section { margin-bottom: 30px; }
         .featured-scroll {
             display: flex; gap: 16px;
@@ -314,7 +332,9 @@
             font-size: 0.7rem; font-weight: 800;
             z-index: 2;
             box-shadow: 0 4px 12px rgba(135,206,235,0.5);
+            display: inline-flex; align-items: center; gap: 4px;
         }
+        .new-badge .icon { width: 12px; height: 12px; }
 
         .products-grid {
             display: grid;
@@ -354,7 +374,9 @@
             font-size: 0.75rem; font-weight: 800;
             z-index: 2;
             box-shadow: 0 4px 12px rgba(231,76,60,0.4);
+            display: inline-flex; align-items: center; gap: 3px;
         }
+        .product-badge-discount .icon { width: 11px; height: 11px; stroke-width: 2.5; }
         .product-card img {
             width: 100%; height: 220px; object-fit: contain;
             background: linear-gradient(135deg, #f8fafc, #eef4f8);
@@ -386,7 +408,7 @@
             text-decoration: line-through; font-weight: 500;
         }
         .product-actions { display: flex; gap: 5px; flex-wrap: wrap; }
-        .product-actions button { font-size: 0.78rem; padding: 8px 6px; }
+        .product-actions button { font-size: 0.78rem; padding: 8px 10px; }
 
         .cart-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
@@ -440,7 +462,11 @@
             display: flex; justify-content: space-between;
             align-items: center; margin-bottom: 18px;
         }
-        .modal-content h2 { font-size: 1.3rem; font-weight: 900; color: var(--navy); }
+        .modal-content h2 {
+            font-size: 1.3rem; font-weight: 900; color: var(--navy);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .modal-content h2 .icon { color: var(--gold); }
         .modal-actions {
             display: flex; justify-content: flex-end;
             gap: 10px; margin-top: 18px; flex-wrap: wrap;
@@ -503,7 +529,7 @@
         }
 
         .detail-discount {
-            display: inline-block;
+            display: inline-flex; align-items: center; gap: 5px;
             background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: white; padding: 5px 12px; border-radius: 12px;
             font-size: 0.85rem; font-weight: 800;
@@ -530,7 +556,9 @@
             grid-column: 1 / -1; text-align: center;
             color: var(--text-light); padding: 40px 20px;
             font-size: 1rem; font-weight: 500;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
+        .empty-state .icon { width: 48px; height: 48px; stroke: var(--gold); opacity: 0.5; }
 
         .footer {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
@@ -555,7 +583,6 @@
             margin: 14px auto; border-radius: 2px;
         }
 
-        /* ═══ Slider Yönetim (Admin) ═══ */
         .slider-thumbs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -578,11 +605,10 @@
             background: var(--danger); color: white;
             width: 24px; height: 24px;
             border-radius: 50%; padding: 0;
-            font-size: 12px; font-weight: 900;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
             box-shadow: 0 2px 6px rgba(231,76,60,0.5);
         }
+        .slider-thumb .remove-btn .icon { width: 12px; height: 12px; stroke-width: 3; }
     </style>
 </head>
 <body>
@@ -593,7 +619,10 @@
     </div>
 
     <!-- ═══ Ücretsiz Kargo Şeridi ═══ -->
-    <div class="shipping-bar" id="shippingBar">🚚 احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر</div>
+    <div class="shipping-bar" id="shippingBar">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+        <span>احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر</span>
+    </div>
 
     <!-- ═══ HERO ═══ -->
     <section class="hero">
@@ -619,15 +648,19 @@
         <img class="hero-logo-img" id="heroLogoImg" alt="Logo">
         <h1 class="hero-title" id="heroTitle">متجر ميار كوزمتيك</h1>
         <div class="hero-divider"></div>
-        <p class="hero-subtitle" id="heroSubtitle">جمالك يبدأ من هنا ✨</p>
+        <p class="hero-subtitle" id="heroSubtitle">جمالك يبدأ من هنا</p>
     </section>
 
     <!-- ═══ SLIDER ═══ -->
     <div class="slider-container" id="sliderContainer" style="display: none;">
         <div class="slider">
             <div class="slider-track" id="sliderTrack"></div>
-            <button class="slider-nav slider-prev" onclick="sliderPrev()">‹</button>
-            <button class="slider-nav slider-next" onclick="sliderNext()">›</button>
+            <button class="slider-nav slider-prev" onclick="sliderPrev()">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="slider-nav slider-next" onclick="sliderNext()">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
             <div class="slider-dots" id="sliderDots"></div>
         </div>
     </div>
@@ -636,13 +669,27 @@
     <header>
         <div class="header-top">
             <div class="header-btns">
-                <button class="cart-btn" onclick="openModal('cartModal')">🛒 السلة (<span id="cart-count">0</span>)</button>
+                <button class="cart-btn" onclick="openModal('cartModal')">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    <span>السلة (<span id="cart-count">0</span>)</span>
+                </button>
             </div>
         </div>
         <div class="search-box">
-            <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="🔍 بحث عن منتج...">
+            <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="ابحث عن منتج...">
+            <svg class="icon search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         </div>
     </header>
+
+    <!-- ═══ Ürünler Başlığı ═══ -->
+    <div class="container" style="margin-bottom: 0;">
+        <div class="section-title-wrap">
+            <h2 class="section-title">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>المنتجات</span>
+            </h2>
+        </div>
+    </div>
 
     <!-- ═══ Kategoriler ═══ -->
     <div id="categoriesBar" class="categories-bar"></div>
@@ -651,20 +698,36 @@
     <div class="container">
         <div id="adminBar" class="admin-bar" style="display: none;">
             <div>
-                <span>🔐 <strong style="color: var(--navy);">وضع المسؤول مفعل <span class="badge-admin">ADMIN</span></strong></span>
+                <strong style="color: var(--navy); display: inline-flex; align-items: center; gap: 6px;">
+                    <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <span>وضع المسؤول</span>
+                    <span class="badge-admin">ADMIN</span>
+                </strong>
                 <div class="sync-info" id="sync-info"></div>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button onclick="openProductForm()" class="btn-gold">➕ إضافة منتج</button>
-                <button onclick="openSiteSettings()" class="btn-warning">⚙️ إعدادات الموقع</button>
-                <button onclick="handleSupabaseLogout()" class="btn-danger">🚪 خروج</button>
+                <button onclick="openProductForm()" class="btn-gold">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    <span>إضافة منتج</span>
+                </button>
+                <button onclick="openSiteSettings()" class="btn-warning">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span>الإعدادات</span>
+                </button>
+                <button onclick="handleSupabaseLogout()" class="btn-danger">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                    <span>خروج</span>
+                </button>
             </div>
         </div>
 
         <!-- Yeni Gelenler -->
         <section class="featured-section" id="newArrivalsSection" style="display: none;">
             <div class="section-title-wrap">
-                <h2 class="section-title">✨ وصل حديثاً</h2>
+                <h2 class="section-title">
+                    <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+                    <span>وصل حديثاً</span>
+                </h2>
             </div>
             <div class="featured-scroll" id="newArrivalsScroll"></div>
         </section>
@@ -672,15 +735,14 @@
         <!-- İndirimler -->
         <section class="featured-section" id="discountsSection" style="display: none;">
             <div class="section-title-wrap">
-                <h2 class="section-title">🔥 عروض وخصومات</h2>
+                <h2 class="section-title">
+                    <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                    <span>عروض وخصومات</span>
+                </h2>
             </div>
             <div class="featured-scroll" id="discountsScroll"></div>
         </section>
 
-        <!-- Tüm Ürünler -->
-        <div class="section-title-wrap">
-            <h2 class="section-title">🛍️ جميع المنتجات</h2>
-        </div>
         <div id="productsGrid" class="products-grid"></div>
     </div>
 
@@ -691,10 +753,15 @@
             <strong id="cart-total-price">0</strong>
             <span>₺</span>
         </div>
-        <button onclick="completeOrder()" class="btn-success">📱 إرسال الطلب</button>
+        <button onclick="completeOrder()" class="btn-success">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            <span>إرسال الطلب</span>
+        </button>
     </div>
 
-    <button id="scrollTopBtn" title="الأعلى">⬆</button>
+    <button id="scrollTopBtn" title="الأعلى">
+        <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
 
     <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
@@ -708,14 +775,23 @@
         <div class="modal-content" style="text-align:center;">
             <img id="detail-img" src="" loading="lazy">
             <div id="detail-discount" class="detail-discount" style="display:none;"></div>
-            <h2 id="detail-title" style="margin-bottom:12px;"></h2>
+            <h2 id="detail-title" style="margin-bottom:12px; justify-content: center;"></h2>
             <p id="detail-desc"></p>
             <div id="detail-price-row" style="margin-bottom:16px;"></div>
             <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button id="detail-add-btn" class="btn-success" style="flex-grow:1; padding:12px;">🛒 إضافة للسلة</button>
-                <button id="detail-share-btn" class="btn-whatsapp" style="padding:12px 16px;">💬</button>
-                <button id="detail-copy-link-btn" class="btn-warning" style="padding:12px 16px;">🔗</button>
-                <button onclick="closeModalAndPopHistory('productDetailModal')" class="btn-danger" style="padding:12px 16px;">✕</button>
+                <button id="detail-add-btn" class="btn-success" style="flex-grow:1; padding:12px;">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    <span>إضافة للسلة</span>
+                </button>
+                <button id="detail-share-btn" class="btn-whatsapp btn-icon" title="مشاركة">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                </button>
+                <button id="detail-copy-link-btn" class="btn-warning btn-icon" title="نسخ الرابط">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+                <button onclick="closeModalAndPopHistory('productDetailModal')" class="btn-danger btn-icon" title="إغلاق">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
             </div>
         </div>
     </div>
@@ -724,8 +800,14 @@
     <div id="cartModal" class="modal" onclick="closeModalOnBackdrop(event, 'cartModal')">
         <div class="modal-content">
             <div class="modal-header-row">
-                <h2>🛒 سلة التسوق</h2>
-                <button onclick="clearCart()" class="btn-danger btn-sm">🗑️ تفريغ</button>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    <span>سلة التسوق</span>
+                </h2>
+                <button onclick="clearCart()" class="btn-danger btn-sm">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                    <span>تفريغ</span>
+                </button>
             </div>
             <div id="cartList"></div>
             <div class="modal-actions">
@@ -737,7 +819,10 @@
     <!-- ═══ Login Modal ═══ -->
     <div id="loginModal" class="modal" onclick="closeModalOnBackdrop(event, 'loginModal')">
         <div class="modal-content">
-            <h2 style="margin-bottom:18px; text-align:center;">🔐 دخول المسؤول</h2>
+            <h2 style="margin-bottom:18px; justify-content: center;">
+                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>دخول المسؤول</span>
+            </h2>
             <form onsubmit="event.preventDefault(); handleSupabaseLogin();">
                 <div class="form-group">
                     <label>البريد الإلكتروني</label>
@@ -747,10 +832,15 @@
                     <label>كلمة المرور</label>
                     <div class="password-row">
                         <input type="password" id="login-password" placeholder="كلمة المرور" dir="ltr" autocomplete="current-password">
-                        <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" id="btn-toggle-pass">👁️</button>
+                        <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" id="btn-toggle-pass">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
                     </div>
                 </div>
-                <button type="submit" class="btn-gold" style="width:100%; margin-top:10px; padding:12px;">🔓 تسجيل الدخول</button>
+                <button type="submit" class="btn-gold" style="width:100%; margin-top:10px; padding:12px;">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+                    <span>تسجيل الدخول</span>
+                </button>
             </form>
             <div class="modal-actions">
                 <button onclick="closeModalAndPopHistory('loginModal')" class="btn-danger">إغلاق</button>
@@ -761,37 +851,43 @@
     <!-- ═══ Product Form Modal ═══ -->
     <div id="productFormModal" class="modal" onclick="closeModalOnBackdrop(event, 'productFormModal')">
         <div class="modal-content">
-            <h2 id="product-form-title" style="margin-bottom:18px;">➕ إضافة منتج</h2>
+            <h2 id="product-form-title" style="margin-bottom:18px;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                <span>إضافة منتج</span>
+            </h2>
             <input type="hidden" id="pf-id">
             <div class="form-group">
-                <label>📷 صورة المنتج</label>
+                <label>صورة المنتج</label>
                 <input type="file" id="pf-image-file" accept="image/*" onchange="previewProductImage(this)">
                 <img id="pf-image-preview" class="img-preview" alt="معاينة">
             </div>
             <div class="form-group">
-                <label>📝 اسم المنتج *</label>
+                <label>اسم المنتج *</label>
                 <input type="text" id="pf-name" placeholder="مثال: عطر ورد">
             </div>
             <div class="form-group">
-                <label>💰 السعر الحالي (₺) *</label>
+                <label>السعر الحالي (₺) *</label>
                 <input type="number" id="pf-price" placeholder="250" step="0.01" min="0">
             </div>
             <div class="form-group">
-                <label>💵 السعر الأصلي (قبل الخصم)</label>
+                <label>السعر الأصلي (قبل الخصم)</label>
                 <input type="number" id="pf-original-price" placeholder="اتركه فارغاً إن لم يكن هناك خصم" step="0.01" min="0">
             </div>
             <div class="form-group">
-                <label>🏷️ الفئة / القسم</label>
+                <label>الفئة / القسم</label>
                 <input type="text" id="pf-category" list="category-list" placeholder="مثال: عطور, عناية بالبشرة">
                 <datalist id="category-list"></datalist>
                 <div class="price-hint">للفئات المتعددة افصل بينها بفاصلة (,) أو فاصلة منقوطة (;) أو شرطة مائلة (/)</div>
             </div>
             <div class="form-group">
-                <label>📄 الوصف</label>
+                <label>الوصف</label>
                 <textarea id="pf-desc" placeholder="اكتب وصف المنتج..."></textarea>
             </div>
             <div class="modal-actions">
-                <button onclick="saveProduct()" class="btn-success" id="pf-save-btn">💾 حفظ</button>
+                <button onclick="saveProduct()" class="btn-success" id="pf-save-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    <span>حفظ</span>
+                </button>
                 <button onclick="closeModalAndPopHistory('productFormModal')" class="btn-danger">إلغاء</button>
             </div>
         </div>
@@ -800,44 +896,51 @@
     <!-- ═══ Site Settings Modal ═══ -->
     <div id="siteSettingsModal" class="modal" onclick="closeModalOnBackdrop(event, 'siteSettingsModal')">
         <div class="modal-content">
-            <h2 style="margin-bottom:18px;">⚙️ إعدادات الموقع</h2>
+            <h2 style="margin-bottom:18px;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>إعدادات الموقع</span>
+            </h2>
 
-            <!-- Logo -->
             <div class="form-group">
-                <label>🖼️ شعار الموقع (Logo)</label>
+                <label>شعار الموقع (Logo)</label>
                 <input type="file" id="ss-logo-file" accept="image/*" onchange="previewSiteLogo(this)">
                 <img id="ss-logo-preview" class="img-preview" alt="Logo">
                 <div class="price-hint">اتركه فارغاً لاستخدام الشعار الافتراضي</div>
             </div>
 
-            <!-- Hero Title -->
             <div class="form-group">
-                <label>📝 عنوان الموقع</label>
+                <label>عنوان الموقع</label>
                 <input type="text" id="ss-hero-title" placeholder="متجر ميار كوزمتيك">
             </div>
 
-            <!-- Hero Subtitle -->
             <div class="form-group">
-                <label>💬 العنوان الفرعي</label>
-                <input type="text" id="ss-hero-subtitle" placeholder="جمالك يبدأ من هنا ✨">
+                <label>العنوان الفرعي</label>
+                <input type="text" id="ss-hero-subtitle" placeholder="جمالك يبدأ من هنا">
             </div>
 
-            <!-- Free shipping -->
             <div class="form-group">
-                <label>🚚 نص الشحن المجاني</label>
+                <label>نص الشحن المجاني</label>
                 <input type="text" id="ss-shipping-text" placeholder="احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر">
             </div>
 
-            <!-- Slider Images -->
             <div class="form-group">
-                <label>🎨 صور البانر (Slider)</label>
+                <label>الحد الأدنى للشحن المجاني (₺)</label>
+                <input type="number" id="ss-shipping-min" placeholder="800" step="1" min="0">
+                <div class="price-hint">السلة يجب أن تتجاوز هذا المبلغ للحصول على شحن مجاني</div>
+            </div>
+
+            <div class="form-group">
+                <label>صور البانر (Slider)</label>
                 <input type="file" id="ss-slider-file" accept="image/*" multiple onchange="uploadSliderImages(this)">
                 <div class="price-hint">يمكنك اختيار عدة صور. سيتم عرضها كبانر متحرك</div>
                 <div class="slider-thumbs" id="ss-slider-thumbs"></div>
             </div>
 
             <div class="modal-actions">
-                <button onclick="saveSiteSettings()" class="btn-success" id="ss-save-btn">💾 حفظ</button>
+                <button onclick="saveSiteSettings()" class="btn-success" id="ss-save-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    <span>حفظ</span>
+                </button>
                 <button onclick="closeModalAndPopHistory('siteSettingsModal')" class="btn-danger">إغلاق</button>
             </div>
         </div>
@@ -853,8 +956,9 @@
         let catalogConfig = { twochat_api_key: '', twochat_phone: '' };
         let siteSettings = {
             logo_url: '', hero_title: 'متجر ميار كوزمتيك',
-            hero_subtitle: 'جمالك يبدأ من هنا ✨',
+            hero_subtitle: 'جمالك يبدأ من هنا',
             free_shipping_text: 'احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر',
+            free_shipping_min: 800,
             slider_images: []
         };
 
@@ -873,7 +977,6 @@
         let siteLogoFile = null;
         let siteLogoTempUrl = '';
         let sliderTempImages = [];
-        let sliderFiles = [];
         let currentSlide = 0;
         let sliderAutoplayTimer = null;
 
@@ -889,8 +992,13 @@
             const inp = document.getElementById('login-password');
             const btn = document.getElementById('btn-toggle-pass');
             if (!inp || !btn) return;
-            if (inp.type === 'password') { inp.type = 'text'; btn.innerText = '🙈'; }
-            else { inp.type = 'password'; btn.innerText = '👁️'; }
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>';
+            } else {
+                inp.type = 'password';
+                btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+            }
         }
 
         async function loadCatalogConfig() {
@@ -917,8 +1025,9 @@
                 if (data) {
                     siteSettings.logo_url = data.logo_url || '';
                     siteSettings.hero_title = data.hero_title || 'متجر ميار كوزمتيك';
-                    siteSettings.hero_subtitle = data.hero_subtitle || 'جمالك يبدأ من هنا ✨';
+                    siteSettings.hero_subtitle = data.hero_subtitle || 'جمالك يبدأ من هنا';
                     siteSettings.free_shipping_text = data.free_shipping_text || 'احصل على شحن مجاني عند طلبك بقيمة 800 وأكثر';
+                    siteSettings.free_shipping_min = parseFloat(data.free_shipping_min) || 800;
                     siteSettings.slider_images = Array.isArray(data.slider_images) ? data.slider_images : [];
                 }
                 applySiteSettings();
@@ -938,9 +1047,36 @@
             }
             document.getElementById('heroTitle').innerText = siteSettings.hero_title || 'متجر ميار كوزمتيك';
             document.getElementById('heroSubtitle').innerText = siteSettings.hero_subtitle || '';
-            document.getElementById('shippingBar').innerText = '🚚 ' + (siteSettings.free_shipping_text || '');
-
+            updateShippingBar();
             renderSlider();
+        }
+
+        function updateShippingBar() {
+            const bar = document.getElementById('shippingBar');
+            if (!bar) return;
+            
+            const tPrice = cart.reduce((sum, c) => {
+                const prod = currentProducts.find(p => String(p.id) === String(c.id));
+                return sum + (prod ? prod.price * c.qty : 0);
+            }, 0);
+            const min = siteSettings.free_shipping_min || 800;
+            const text = siteSettings.free_shipping_text || `احصل على شحن مجاني عند طلبك بقيمة ${min} وأكثر`;
+
+            const truckSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>';
+            const giftSvg = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>';
+
+            if (tPrice === 0) {
+                bar.innerHTML = truckSvg + '<span>' + escapeHtml(text) + '</span>';
+                bar.style.background = 'linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark))';
+                bar.style.backgroundSize = '200% 100%';
+            } else if (tPrice >= min) {
+                bar.innerHTML = giftSvg + '<span>مبروك! شحنك مجاني الآن</span>';
+                bar.style.background = 'linear-gradient(90deg, #27ae60, #2ecc71, #27ae60)';
+            } else {
+                const remaining = min - tPrice;
+                bar.innerHTML = truckSvg + '<span>أضف ' + remaining.toFixed(0) + ' ₺ أخرى للحصول على شحن مجاني</span>';
+                bar.style.background = 'linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark))';
+            }
         }
 
         function renderSlider() {
@@ -960,7 +1096,7 @@
             images.forEach((url, i) => {
                 const slide = document.createElement('div');
                 slide.className = 'slider-slide';
-                slide.innerHTML = `<img src="${escapeHtml(url)}" alt="Slide ${i+1}">`;
+                slide.innerHTML = '<img src="' + escapeHtml(url) + '" alt="Slide ' + (i+1) + '">';
                 track.appendChild(slide);
 
                 const dot = document.createElement('div');
@@ -977,7 +1113,7 @@
         function updateSlider() {
             const track = document.getElementById('sliderTrack');
             if (!track) return;
-            track.style.transform = `translateX(${currentSlide * 100}%)`;
+            track.style.transform = 'translateX(' + (currentSlide * 100) + '%)';
             document.querySelectorAll('.slider-dot').forEach((d, i) => {
                 d.classList.toggle('active', i === currentSlide);
             });
@@ -1068,7 +1204,7 @@
 
             const allBtn = document.createElement('button');
             allBtn.className = 'cat-btn' + (selectedCategory === 'ALL' ? ' active' : '');
-            allBtn.innerText = '✨ الكل';
+            allBtn.innerHTML = '<svg class="icon icon-sm" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span>الكل</span>';
             allBtn.onclick = () => {
                 if (selectedCategory === 'ALL') return;
                 selectedCategory = 'ALL'; renderCategories(); applyLocalFilter();
@@ -1115,21 +1251,21 @@
                 if (data.lastSync) {
                     const d = new Date(data.lastSync.synced_at);
                     const info = document.getElementById('sync-info');
-                    if (info) info.innerText = `آخر مزامنة: ${d.toLocaleString('ar-EG')} (${data.lastSync.total_count} منتج)`;
+                    if (info) info.innerText = 'آخر مزامنة: ' + d.toLocaleString('ar-EG') + ' (' + data.lastSync.total_count + ' منتج)';
                 }
 
                 renderCategories();
                 applyLocalFilter();
                 renderFeaturedSections();
+                updateShippingBar();
             } catch (err) {
                 console.error('Catalog:', err);
                 document.getElementById('productsGrid').innerHTML =
-                    `<p class="empty-state" style="color:#e74c3c;">⚠️ تعذر تحميل البيانات: ${err.message}</p>`;
+                    '<p class="empty-state">تعذر تحميل البيانات: ' + err.message + '</p>';
             } finally { hideLoadingScreen(); }
         }
 
         function renderFeaturedSections() {
-            // Yeni Gelenler: son eklenen 8 ürün
             const sorted = currentProducts.slice().sort((a, b) => {
                 const da = new Date(a.synced_at || 0);
                 const db = new Date(b.synced_at || 0);
@@ -1150,7 +1286,6 @@
                 newSection.style.display = 'none';
             }
 
-            // İndirimler
             const discounted = currentProducts.filter(p => calcDiscount(p) > 0)
                 .sort((a, b) => calcDiscount(b) - calcDiscount(a))
                 .slice(0, 10);
@@ -1192,7 +1327,7 @@
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
             if (filteredProducts.length === 0) {
-                grid.innerHTML = `<p class="empty-state">لا توجد منتجات</p>`;
+                grid.innerHTML = '<p class="empty-state"><svg class="icon" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>لا توجد منتجات</span></p>';
                 return;
             }
             const frag = document.createDocumentFragment();
@@ -1207,27 +1342,34 @@
             const discount = calcDiscount(p);
             const hasDiscount = discount > 0;
 
+            const sparkleSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>';
+            const cartSvg = '<svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>';
+            const shareSvg = '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>';
+            const linkSvg = '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+            const editSvg = '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+            const trashSvg = '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>';
+
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-                ${isNew ? `<span class="new-badge">✨ جديد</span>` : ''}
-                ${hasDiscount ? `<span class="product-badge-discount">-${discount}%</span>` : ''}
+                ${isNew ? '<span class="new-badge">' + sparkleSvg + 'جديد</span>' : ''}
+                ${hasDiscount ? '<span class="product-badge-discount">-' + discount + '%</span>' : ''}
                 <img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" onclick="openProductDetail('${idStr}')" loading="lazy">
                 <div class="product-info">
                     <div>
                         <div class="product-title" onclick="openProductDetail('${idStr}')">${escapeHtml(name)}</div>
                         <div class="price-row">
                             <span class="product-price">${p.price} ₺</span>
-                            ${hasDiscount ? `<span class="product-price-old">${p.original_price} ₺</span>` : ''}
+                            ${hasDiscount ? '<span class="product-price-old">' + p.original_price + ' ₺</span>' : ''}
                         </div>
                     </div>
                     <div class="product-actions">
-                        <button onclick="addToCart('${idStr}')" class="btn-gold" style="flex-grow:1;">🛒 إضافة</button>
-                        <button onclick="shareProduct('${idStr}')" class="btn-whatsapp" title="مشاركة">💬</button>
-                        <button onclick="copyProductLink('${idStr}')" class="btn-warning" title="نسخ">🔗</button>
+                        <button onclick="addToCart('${idStr}')" class="btn-gold" style="flex-grow:1;">${cartSvg}<span>إضافة</span></button>
+                        <button onclick="shareProduct('${idStr}')" class="btn-whatsapp btn-icon" title="مشاركة">${shareSvg}</button>
+                        <button onclick="copyProductLink('${idStr}')" class="btn-warning btn-icon" title="نسخ">${linkSvg}</button>
                         ${isAdmin ? `
-                            <button onclick="openProductForm('${idStr}')" class="btn-warning" title="تعديل">✏️</button>
-                            <button onclick="deleteProduct('${idStr}')" class="btn-danger" title="حذف">🗑️</button>
+                            <button onclick="openProductForm('${idStr}')" class="btn-warning btn-icon" title="تعديل">${editSvg}</button>
+                            <button onclick="deleteProduct('${idStr}')" class="btn-danger btn-icon" title="حذف">${trashSvg}</button>
                         ` : ''}
                     </div>
                 </div>
@@ -1240,7 +1382,7 @@
             cartList.innerHTML = '';
             let tQty = 0, tPrice = 0;
             if (cart.length === 0) {
-                cartList.innerHTML = `<p style="text-align:center; color:var(--text-light); padding:30px 0; font-weight:500;">السلة فارغة</p>`;
+                cartList.innerHTML = '<p style="text-align:center; color:var(--text-light); padding:30px 0; font-weight:500;">السلة فارغة</p>';
             } else {
                 cart.forEach(c => {
                     const prod = currentProducts.find(p => String(p.id) === String(c.id));
@@ -1249,6 +1391,7 @@
                         const itemTotal = prod.price * c.qty;
                         tQty += c.qty; tPrice += itemTotal;
                         const idStr = String(prod.id);
+                        const trashSvg = '<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>';
                         const d = document.createElement('div');
                         d.className = 'cart-item';
                         d.innerHTML = `
@@ -1261,7 +1404,7 @@
                                 <span style="font-weight:800; color:var(--navy);">${c.qty}</span>
                                 <button onclick="updateQty('${idStr}', 1)">+</button>
                             </div>
-                            <button onclick="removeFromCart('${idStr}')" class="btn-remove-item">🗑️</button>
+                            <button onclick="removeFromCart('${idStr}')" class="btn-remove-item">${trashSvg}</button>
                         `;
                         cartList.appendChild(d);
                     }
@@ -1269,6 +1412,7 @@
             }
             document.getElementById('cart-count').innerText = tQty;
             document.getElementById('cart-total-price').innerText = tPrice;
+            updateShippingBar();
         }
 
         function addToCart(id) {
@@ -1299,23 +1443,23 @@
             if (cart.length === 0) { alert('السلة فارغة!'); return; }
             let lines = [], tQty = 0, tTotal = 0;
             const orderPhone = catalogConfig.twochat_phone || '905388444275';
-            lines.push('🛍️ طلب جديد');
+            lines.push('طلب جديد');
             lines.push('');
             cart.forEach(c => {
                 const prod = currentProducts.find(p => String(p.id) === String(c.id));
                 if (prod) {
-                    const name = prod.name_ar || prod.name_tr || `#${c.id}`;
+                    const name = prod.name_ar || prod.name_tr || '#' + c.id;
                     const itemTotal = prod.price * c.qty;
                     tQty += c.qty; tTotal += itemTotal;
-                    lines.push(`• ${name}`);
-                    lines.push(`  ${prod.price} ₺ × ${c.qty} = ${itemTotal} ₺`);
+                    lines.push('• ' + name);
+                    lines.push('  ' + prod.price + ' ₺ × ' + c.qty + ' = ' + itemTotal + ' ₺');
                 }
             });
             lines.push('');
-            lines.push(`إجمالي المنتجات: ${tQty}`);
-            lines.push(`المبلغ الإجمالي: ${tTotal} ₺`);
+            lines.push('إجمالي المنتجات: ' + tQty);
+            lines.push('المبلغ الإجمالي: ' + tTotal + ' ₺');
             const msg = encodeURIComponent(lines.join('\n'));
-            window.open(`https://wa.me/${formatPhoneForWa(orderPhone)}?text=${msg}`, '_blank');
+            window.open('https://wa.me/' + formatPhoneForWa(orderPhone) + '?text=' + msg, '_blank');
         }
 
         function openProductDetail(id) {
@@ -1332,20 +1476,18 @@
 
             const discountEl = document.getElementById('detail-discount');
             if (discount > 0) {
-                discountEl.style.display = 'inline-block';
-                discountEl.innerText = `🔥 خصم ${discount}%`;
+                discountEl.style.display = 'inline-flex';
+                discountEl.innerText = 'خصم ' + discount + '%';
             } else {
                 discountEl.style.display = 'none';
             }
 
             const priceRow = document.getElementById('detail-price-row');
             if (discount > 0) {
-                priceRow.innerHTML = `
-                    <span style="font-size:1.4rem; font-weight:900; color:var(--gold-dark);">${p.price} ₺</span>
-                    <span style="font-size:1rem; color:var(--text-light); text-decoration:line-through; margin-inline-start:8px;">${p.original_price} ₺</span>
-                `;
+                priceRow.innerHTML = '<span style="font-size:1.4rem; font-weight:900; color:var(--gold-dark);">' + p.price + ' ₺</span>' +
+                    '<span style="font-size:1rem; color:var(--text-light); text-decoration:line-through; margin-inline-start:8px;">' + p.original_price + ' ₺</span>';
             } else {
-                priceRow.innerHTML = `<span style="font-size:1.4rem; font-weight:900; color:var(--gold-dark);">${p.price} ₺</span>`;
+                priceRow.innerHTML = '<span style="font-size:1.4rem; font-weight:900; color:var(--gold-dark);">' + p.price + ' ₺</span>';
             }
 
             document.getElementById('detail-add-btn').onclick = () => { addToCart(p.id); closeModalAndPopHistory('productDetailModal'); };
@@ -1360,18 +1502,18 @@
             if (!p) return;
             const name = p.name_ar || p.name_tr || 'منتج';
             const discount = calcDiscount(p);
-            let msg = `${name}\n`;
-            if (discount > 0) msg += `🔥 خصم ${discount}%\n💰 ${p.price} ₺ بدلاً من ${p.original_price} ₺\n`;
-            else msg += `💰 ${p.price} ₺\n`;
-            msg += `🔗 ${getProductLink(id)}`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+            let msg = name + '\n';
+            if (discount > 0) msg += 'خصم ' + discount + '%\n' + p.price + ' ₺ بدلاً من ' + p.original_price + ' ₺\n';
+            else msg += p.price + ' ₺\n';
+            msg += getProductLink(id);
+            window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
         }
 
         function copyProductLink(id) {
             id = String(id);
             const p = currentProducts.find(x => String(x.id) === id);
             if (!p) return;
-            copyTextToClipboard(getProductLink(id), '✅ تم نسخ الرابط');
+            copyTextToClipboard(getProductLink(id), 'تم نسخ الرابط');
         }
 
         function openProductForm(id = null) {
@@ -1386,10 +1528,14 @@
             preview.src = '';
             document.getElementById('pf-image-file').value = '';
 
+            const titleEl = document.getElementById('product-form-title');
+            const plusSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>';
+            const editSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+
             if (id) {
                 const p = currentProducts.find(x => String(x.id) === String(id));
                 if (!p) { alert('لم يتم العثور على المنتج'); return; }
-                document.getElementById('product-form-title').innerText = '✏️ تعديل المنتج';
+                titleEl.innerHTML = editSvg + '<span>تعديل المنتج</span>';
                 document.getElementById('pf-id').value = p.id;
                 document.getElementById('pf-name').value = p.name_ar || p.name_tr || '';
                 document.getElementById('pf-price').value = p.price || '';
@@ -1404,7 +1550,7 @@
                     preview.style.display = 'block';
                 }
             } else {
-                document.getElementById('product-form-title').innerText = '➕ إضافة منتج جديد';
+                titleEl.innerHTML = plusSvg + '<span>إضافة منتج جديد</span>';
                 document.getElementById('pf-id').value = '';
                 document.getElementById('pf-name').value = '';
                 document.getElementById('pf-price').value = '';
@@ -1467,7 +1613,7 @@
             const res = await fetch('/api/b2-upload', {
                 method: 'POST',
                 headers: { 'Authorization': 'Bearer ' + sessionToken, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ base64, contentType: compressed.type || 'image/webp' })
+                body: JSON.stringify({ base64: base64, contentType: compressed.type || 'image/webp' })
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || 'Upload failed');
@@ -1487,12 +1633,12 @@
             if (!name) { alert('يجب إدخال اسم المنتج'); return; }
             if (price <= 0) { alert('يجب إدخال سعر صحيح'); return; }
             if (originalPrice > 0 && originalPrice <= price) {
-                alert('⚠️ السعر الأصلي يجب أن يكون أكبر من السعر الحالي'); return;
+                alert('السعر الأصلي يجب أن يكون أكبر من السعر الحالي'); return;
             }
 
             const btn = document.getElementById('pf-save-btn');
-            const oldText = btn.innerText;
-            btn.innerText = '⏳ جاري الحفظ...';
+            const oldText = btn.innerHTML;
+            btn.innerHTML = '... جاري الحفظ';
             btn.disabled = true;
 
             try {
@@ -1508,21 +1654,21 @@
                 if (id) {
                     const { error } = await _supabase.from('whatsapp_products').update(payload).eq('id', id);
                     if (error) throw error;
-                    alert('✅ تم تحديث المنتج بنجاح');
+                    alert('تم تحديث المنتج بنجاح');
                 } else {
                     const newId = 'admin_' + Date.now();
                     const { error } = await _supabase.from('whatsapp_products').insert([{ ...payload, id: newId }]);
                     if (error) throw error;
-                    alert('✅ تمت إضافة المنتج بنجاح');
+                    alert('تمت إضافة المنتج بنجاح');
                 }
 
                 closeModalAndPopHistory('productFormModal');
                 await loadCatalog(true);
             } catch (err) {
-                alert('❌ خطأ: ' + err.message);
+                alert('خطأ: ' + err.message);
                 console.error(err);
             } finally {
-                btn.innerText = oldText;
+                btn.innerHTML = oldText;
                 btn.disabled = false;
             }
         }
@@ -1535,23 +1681,22 @@
                 if (error) throw error;
                 cart = cart.filter(c => String(c.id) !== String(id));
                 saveCart(); renderCart();
-                alert('✅ تم حذف المنتج');
+                alert('تم حذف المنتج');
                 await loadCatalog(true);
-            } catch (err) { alert('❌ خطأ في الحذف: ' + err.message); }
+            } catch (err) { alert('خطأ في الحذف: ' + err.message); }
         }
 
-        // ═══ Site Settings (Logo + Slider) ═══
         function openSiteSettings() {
             if (!isAdmin) { alert('يجب تسجيل الدخول أولاً'); return; }
 
             siteLogoFile = null;
             siteLogoTempUrl = siteSettings.logo_url || '';
             sliderTempImages = (siteSettings.slider_images || []).slice();
-            sliderFiles = [];
 
             document.getElementById('ss-hero-title').value = siteSettings.hero_title || '';
             document.getElementById('ss-hero-subtitle').value = siteSettings.hero_subtitle || '';
             document.getElementById('ss-shipping-text').value = siteSettings.free_shipping_text || '';
+            document.getElementById('ss-shipping-min').value = siteSettings.free_shipping_min || 800;
             document.getElementById('ss-logo-file').value = '';
             document.getElementById('ss-slider-file').value = '';
 
@@ -1584,13 +1729,12 @@
         function renderSliderThumbs() {
             const container = document.getElementById('ss-slider-thumbs');
             container.innerHTML = '';
+            const xSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
             sliderTempImages.forEach((url, idx) => {
                 const thumb = document.createElement('div');
                 thumb.className = 'slider-thumb';
-                thumb.innerHTML = `
-                    <img src="${escapeHtml(url)}" alt="slide">
-                    <button class="remove-btn" onclick="removeSliderImage(${idx})">✕</button>
-                `;
+                thumb.innerHTML = '<img src="' + escapeHtml(url) + '" alt="slide">' +
+                    '<button class="remove-btn" onclick="removeSliderImage(' + idx + ')">' + xSvg + '</button>';
                 container.appendChild(thumb);
             });
         }
@@ -1605,8 +1749,8 @@
             if (files.length === 0) return;
 
             const btn = document.getElementById('ss-save-btn');
-            const oldText = btn.innerText;
-            btn.innerText = '⏳ جاري رفع البانر...';
+            const oldText = btn.innerHTML;
+            btn.innerHTML = '... جاري رفع البانر';
             btn.disabled = true;
 
             try {
@@ -1615,11 +1759,11 @@
                     sliderTempImages.push(url);
                 }
                 renderSliderThumbs();
-                alert(`✅ تم رفع ${files.length} صورة`);
+                alert('تم رفع ' + files.length + ' صورة');
             } catch (err) {
-                alert('❌ خطأ في رفع الصور: ' + err.message);
+                alert('خطأ في رفع الصور: ' + err.message);
             } finally {
-                btn.innerText = oldText;
+                btn.innerHTML = oldText;
                 btn.disabled = false;
                 input.value = '';
             }
@@ -1629,8 +1773,8 @@
             if (!isAdmin || !_supabase) { alert('غير مصرح'); return; }
 
             const btn = document.getElementById('ss-save-btn');
-            const oldText = btn.innerText;
-            btn.innerText = '⏳ جاري الحفظ...';
+            const oldText = btn.innerHTML;
+            btn.innerHTML = '... جاري الحفظ';
             btn.disabled = true;
 
             try {
@@ -1642,6 +1786,7 @@
                     hero_title: document.getElementById('ss-hero-title').value.trim() || 'متجر ميار كوزمتيك',
                     hero_subtitle: document.getElementById('ss-hero-subtitle').value.trim(),
                     free_shipping_text: document.getElementById('ss-shipping-text').value.trim(),
+                    free_shipping_min: parseFloat(document.getElementById('ss-shipping-min').value) || 800,
                     slider_images: sliderTempImages,
                     updated_at: new Date().toISOString()
                 };
@@ -1656,16 +1801,17 @@
                 siteSettings.hero_title = payload.hero_title;
                 siteSettings.hero_subtitle = payload.hero_subtitle;
                 siteSettings.free_shipping_text = payload.free_shipping_text;
+                siteSettings.free_shipping_min = payload.free_shipping_min;
                 siteSettings.slider_images = payload.slider_images;
 
                 applySiteSettings();
-                alert('✅ تم حفظ إعدادات الموقع');
+                alert('تم حفظ إعدادات الموقع');
                 closeModalAndPopHistory('siteSettingsModal');
             } catch (err) {
-                alert('❌ خطأ: ' + err.message);
+                alert('خطأ: ' + err.message);
                 console.error(err);
             } finally {
-                btn.innerText = oldText;
+                btn.innerHTML = oldText;
                 btn.disabled = false;
             }
         }
@@ -1677,7 +1823,7 @@
                 const passInp = document.getElementById('login-password');
                 if (passInp) passInp.type = 'password';
                 const toggleBtn = document.getElementById('btn-toggle-pass');
-                if (toggleBtn) toggleBtn.innerText = '👁️';
+                if (toggleBtn) toggleBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
                 openModal('loginModal');
                 setTimeout(() => document.getElementById('login-email')?.focus(), 100);
                 return;
@@ -1696,7 +1842,7 @@
             if (!email || !password) { alert('البريد وكلمة المرور مطلوبان'); return; }
 
             const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
-            if (error) { alert('❌ خطأ: ' + error.message); return; }
+            if (error) { alert('خطأ: ' + error.message); return; }
 
             isAdmin = true;
             sessionToken = data.session?.access_token || null;
@@ -1704,11 +1850,10 @@
             document.getElementById('login-email').value = '';
             document.getElementById('login-password').value = '';
             document.getElementById('login-password').type = 'password';
-            document.getElementById('btn-toggle-pass').innerText = '👁️';
             updateAdminUI();
             await loadCatalogConfig();
             renderFilteredProducts();
-            alert('✅ تم تسجيل الدخول بنجاح');
+            alert('تم تسجيل الدخول بنجاح');
         }
 
         async function handleSupabaseLogout() {
