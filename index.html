@@ -775,7 +775,7 @@
     </style>
 </head>
 <body>
-    <div id="loadingScreen">
+        <div id="loadingScreen">
         <div class="spinner"></div>
         <span>جاري التحميل...</span>
     </div>
@@ -1263,7 +1263,7 @@
     </div>
 
     <script>
-        const SUPABASE_URL = 'https://xmrdqepjtfycvtgcbkyy.supabase.co';
+                const SUPABASE_URL = 'https://xmrdqepjtfycvtgcbkyy.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_MgJhvhCdIg9oC40t--FZxQ_04A8dWkU';
 
         let _supabase = null;
@@ -1744,7 +1744,7 @@
                 });
             }
         }
-        async function loadCatalog(bust = false) {
+                async function loadCatalog(bust = false) {
             showLoadingScreen();
             try {
                 const url = '/api/products' + (bust ? '?bust=1&t=' + Date.now() : '');
