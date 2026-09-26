@@ -258,6 +258,78 @@
 
         .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
 
+        /* ═══ STICKY FİLTRE BAR ═══ */
+        .filter-bar {
+            background: var(--white);
+            padding: 14px 15px;
+            border-top: 2px solid var(--gold);
+            border-bottom: 1px solid #e8ecf0;
+            display: flex; gap: 10px; align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 94px;
+            z-index: 55;
+            box-shadow: 0 2px 8px rgba(26,41,66,0.06);
+        }
+        .filter-group {
+            display: flex; align-items: center; gap: 6px;
+            background: var(--cream);
+            padding: 6px 12px;
+            border-radius: 25px;
+            border: 1px solid #e8ecf0;
+            font-size: 0.85rem; font-weight: 600;
+            color: var(--navy);
+        }
+        .filter-group select, .filter-group input {
+            border: none; background: transparent;
+            font-family: inherit; font-weight: 700;
+            color: var(--navy); font-size: 0.85rem;
+            outline: none; cursor: pointer;
+            padding: 2px 4px;
+        }
+        .filter-group input[type="number"] { width: 70px; }
+        .filter-btn-clear {
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: var(--white);
+            padding: 6px 14px; border-radius: 25px;
+            font-size: 0.8rem; font-weight: 700;
+            border: none; cursor: pointer;
+            font-family: inherit;
+            display: inline-flex; align-items: center; gap: 4px;
+            transition: all 0.2s;
+        }
+        .filter-btn-clear:hover { transform: scale(1.05); }
+
+        /* ═══ STICKY KATEGORİLER ═══ */
+        .categories-bar {
+            display: flex; gap: 10px; overflow-x: auto;
+            padding: 14px 15px; background: var(--white);
+            scrollbar-width: thin;
+            border-bottom: 1px solid #e8ecf0;
+            position: sticky;
+            top: 154px;
+            z-index: 54;
+            box-shadow: 0 2px 8px rgba(26,41,66,0.06);
+        }
+        .categories-bar::-webkit-scrollbar { height: 3px; }
+        .categories-bar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+        .cat-btn {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--gold); border: 2px solid var(--gold);
+            padding: 9px 20px; border-radius: 25px;
+            white-space: nowrap; font-size: 0.88rem;
+            font-weight: 800; cursor: pointer;
+            transition: all 0.25s; font-family: inherit;
+            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .cat-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
+        .cat-btn.active {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--navy); border-color: var(--gold-light);
+            box-shadow: 0 4px 14px rgba(212,175,55,0.5);
+        }
+
         .admin-bar {
             background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(135,206,235,0.1));
             border: 2px solid var(--gold);
@@ -310,95 +382,6 @@
             .featured-scroll .product-card { min-width: 175px; max-width: 175px; }
         }
 
-        /* ═══ FİLTRE BAR ═══ */
-        .filter-bar {
-            background: var(--white);
-            padding: 14px 15px;
-            border-top: 2px solid var(--gold);
-            border-bottom: 1px solid #e8ecf0;
-            display: flex; gap: 10px; align-items: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .filter-group {
-            display: flex; align-items: center; gap: 6px;
-            background: var(--cream);
-            padding: 6px 12px;
-            border-radius: 25px;
-            border: 1px solid #e8ecf0;
-            font-size: 0.85rem; font-weight: 600;
-            color: var(--navy);
-        }
-        .filter-group select, .filter-group input {
-            border: none; background: transparent;
-            font-family: inherit; font-weight: 700;
-            color: var(--navy); font-size: 0.85rem;
-            outline: none; cursor: pointer;
-            padding: 2px 4px;
-        }
-        .filter-group input[type="number"] { width: 70px; }
-        .filter-btn-clear {
-            background: linear-gradient(135deg, var(--navy), var(--navy-light));
-            color: var(--white);
-            padding: 6px 14px; border-radius: 25px;
-            font-size: 0.8rem; font-weight: 700;
-            border: none; cursor: pointer;
-            font-family: inherit;
-            display: inline-flex; align-items: center; gap: 4px;
-            transition: all 0.2s;
-        }
-        .filter-btn-clear:hover { transform: scale(1.05); }
-
-        /* ═══ KATEGORİLER ═══ */
-        .categories-bar {
-            display: flex; gap: 10px; overflow-x: auto;
-            padding: 14px 15px; background: var(--white);
-            scrollbar-width: thin;
-            border-bottom: 1px solid #e8ecf0;
-        }
-        .categories-bar::-webkit-scrollbar { height: 3px; }
-        .categories-bar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-        .cat-btn {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--gold); border: 2px solid var(--gold);
-            padding: 9px 20px; border-radius: 25px;
-            white-space: nowrap; font-size: 0.88rem;
-            font-weight: 800; cursor: pointer;
-            transition: all 0.25s; font-family: inherit;
-            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
-            display: inline-flex; align-items: center; gap: 6px;
-        }
-        .cat-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
-        .cat-btn.active {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--navy); border-color: var(--gold-light);
-            box-shadow: 0 4px 14px rgba(212,175,55,0.5);
-        }
-
-        button {
-            cursor: pointer; padding: 10px 14px; border: none;
-            border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--white); font-weight: 700; font-size: 0.85rem;
-            touch-action: manipulation; font-family: inherit;
-            transition: all 0.2s;
-            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-        }
-        button:active { transform: scale(0.97); }
-        button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,41,66,0.2); }
-        button.btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-        button.btn-success { background: linear-gradient(135deg, #27ae60, #229954); }
-        button.btn-warning { background: linear-gradient(135deg, #f39c12, #d68910); }
-        button.btn-whatsapp { background: linear-gradient(135deg, #25d366, #1ebd59); }
-        button.btn-gold {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--navy);
-            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
-        }
-        button.btn-sm { padding: 6px 10px; font-size: 0.75rem; }
-        button.btn-icon { padding: 8px; min-width: 36px; }
-
         .new-badge {
             position: absolute; top: 10px; right: 54px;
             background: linear-gradient(135deg, var(--sky-dark), var(--sky));
@@ -444,6 +427,8 @@
             .product-actions button { width: 100%; padding: 8px 5px; }
             .hero-title { font-size: 1.35rem; }
             .hero-logo-wrap, .hero-logo-img { width: 85px; height: 85px; }
+            .filter-bar { top: 88px !important; }
+            .categories-bar { top: 146px !important; }
         }
 
         .product-card {
@@ -503,6 +488,30 @@
         }
         .product-actions { display: flex; gap: 5px; flex-wrap: wrap; }
         .product-actions button { font-size: 0.78rem; padding: 8px 10px; }
+
+        button {
+            cursor: pointer; padding: 10px 14px; border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white); font-weight: 700; font-size: 0.85rem;
+            touch-action: manipulation; font-family: inherit;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(26,41,66,0.15);
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        button:active { transform: scale(0.97); }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,41,66,0.2); }
+        button.btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        button.btn-success { background: linear-gradient(135deg, #27ae60, #229954); }
+        button.btn-warning { background: linear-gradient(135deg, #f39c12, #d68910); }
+        button.btn-whatsapp { background: linear-gradient(135deg, #25d366, #1ebd59); }
+        button.btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--navy);
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+        }
+        button.btn-sm { padding: 6px 10px; font-size: 0.75rem; }
+        button.btn-icon { padding: 8px; min-width: 36px; }
 
         .cart-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
@@ -775,7 +784,7 @@
     </style>
 </head>
 <body>
-        <div id="loadingScreen">
+    <div id="loadingScreen">
         <div class="spinner"></div>
         <span>جاري التحميل...</span>
     </div>
@@ -827,7 +836,7 @@
         </div>
     </div>
 
-    <!-- ═══ 1. HEADER ═══ -->
+    <!-- ═══ 1. HEADER (STICKY TOP: 0) ═══ -->
     <header>
         <div class="header-top">
             <div class="header-btns">
@@ -848,7 +857,36 @@
         </div>
     </header>
 
-    <!-- ═══ 2. ADMIN BAR + 3. YENİ GELENLER + 4. İNDİRİMLER ═══ -->
+    <!-- ═══ 2. FİLTRE BAR (STICKY TOP: 94px) ═══ -->
+    <div class="filter-bar">
+        <div class="filter-group">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+            <span>ترتيب:</span>
+            <select id="sortSelect" onchange="applyLocalFilter()">
+                <option value="newest">الأحدث</option>
+                <option value="price-asc">الأرخص أولاً</option>
+                <option value="price-desc">الأغلى أولاً</option>
+                <option value="discount">أعلى خصم</option>
+                <option value="name">الاسم (أ-ي)</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+            <span>السعر:</span>
+            <input type="number" id="priceMin" placeholder="من" min="0" onchange="applyLocalFilter()">
+            <span>-</span>
+            <input type="number" id="priceMax" placeholder="إلى" min="0" onchange="applyLocalFilter()">
+        </div>
+        <button class="filter-btn-clear" onclick="clearFilters()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <span>مسح</span>
+        </button>
+    </div>
+
+    <!-- ═══ 3. KATEGORİLER (STICKY TOP: 154px) ═══ -->
+    <div id="categoriesBar" class="categories-bar"></div>
+
+    <!-- ═══ 4. İÇERİK (Admin + Yeni Gelenler + İndirimler) ═══ -->
     <div class="container">
         <div id="adminBar" class="admin-bar" style="display: none;">
             <div>
@@ -875,7 +913,7 @@
             </div>
         </div>
 
-        <!-- 3. Yeni Gelenler -->
+        <!-- Yeni Gelenler -->
         <section class="featured-section" id="newArrivalsSection" style="display: none;">
             <div class="section-title-wrap">
                 <h2 class="section-title">
@@ -886,7 +924,7 @@
             <div class="featured-scroll" id="newArrivalsScroll"></div>
         </section>
 
-        <!-- 4. İndirimler -->
+        <!-- İndirimler -->
         <section class="featured-section" id="discountsSection" style="display: none;">
             <div class="section-title-wrap">
                 <h2 class="section-title">
@@ -898,36 +936,7 @@
         </section>
     </div>
 
-    <!-- ═══ 5. FİLTRE BAR ═══ -->
-    <div class="filter-bar">
-        <div class="filter-group">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
-            <span>ترتيب:</span>
-            <select id="sortSelect" onchange="applyLocalFilter()">
-                <option value="newest">الأحدث</option>
-                <option value="price-asc">الأرخص أولاً</option>
-                <option value="price-desc">الأغلى أولاً</option>
-                <option value="discount">أعلى خصم</option>
-                <option value="name">الاسم (أ-ي)</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
-            <span>السعر:</span>
-            <input type="number" id="priceMin" placeholder="من" min="0" onchange="applyLocalFilter()">
-            <span>-</span>
-            <input type="number" id="priceMax" placeholder="إلى" min="0" onchange="applyLocalFilter()">
-        </div>
-        <button class="filter-btn-clear" onclick="clearFilters()">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            <span>مسح</span>
-        </button>
-    </div>
-
-    <!-- ═══ 6. KATEGORİLER ═══ -->
-    <div id="categoriesBar" class="categories-bar"></div>
-
-    <!-- ═══ 7. ÜRÜNLER BAŞLIĞI + 8. ÜRÜN GRID ═══ -->
+    <!-- ═══ 5. ÜRÜNLER BAŞLIĞI + 6. ÜRÜN GRID ═══ -->
     <div class="container">
         <div class="section-title-wrap">
             <h2 class="section-title">
@@ -1263,7 +1272,7 @@
     </div>
 
     <script>
-                const SUPABASE_URL = 'https://xmrdqepjtfycvtgcbkyy.supabase.co';
+            const SUPABASE_URL = 'https://xmrdqepjtfycvtgcbkyy.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_MgJhvhCdIg9oC40t--FZxQ_04A8dWkU';
 
         let _supabase = null;
